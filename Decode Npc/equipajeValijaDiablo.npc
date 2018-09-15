@@ -1,0 +1,33 @@
+define
+	shared stored dailyQuest5
+	shared stored dailyQuestComplete5
+	shared stored dailyQuestTime5
+	shared stored dailyQuestObj5
+	shared stored sigueDailyQuest5
+	
+initial: FORK invisible | setDailyQuestComplete_5
+	null $(dailyQuest5)
+	
+setDailyQuestComplete_5: FORK join | invisible
+	null $(dailyQuestComplete5)
+	
+join: FORK checkStatus | invisible
+	eq $(time.day) $(dailyQuestTime5)
+
+checkStatus: FORK invisible | chackTieneObjeto
+	null $(sigueDailyQuest5)
+	
+chackTieneObjeto: FORK start | invisible
+	null $(dailyQuestObj5)
+	
+start: DO
+    on activate daPemio
+	
+daPemio: DO
+    set dailyQuestObj5 1
+	modal.award "MALETA DE ADRIAN" maletas.valijaDiabloItem
+	goto invisible
+	
+invisible: DO
+    self.enabled false
+	self.state off

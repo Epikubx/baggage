@@ -1,0 +1,72 @@
+define
+	shared stored dailyQuest5
+	shared stored dailyQuestComplete5
+	shared stored dailyQuestTime5
+	shared stored dailyQuestObj5
+	shared stored sigueDailyQuest5
+	
+initial: FORK invisible | setDailyQuestComplete_5
+	null $(dailyQuest5)
+	
+setDailyQuestComplete_5: FORK join | invisible
+	null $(dailyQuestComplete5)
+	
+join: FORK start | invisible
+	eq $(time.day) $(dailyQuestTime5)
+
+start: DO
+    on activate chackTieneObjeto
+	
+chackTieneObjeto: FORK checkStatus | finalState
+	null $(dailyQuestObj5)
+	
+checkStatus: FORK setSigue | pista
+	null $(sigueDailyQuest5)
+	
+setSigue: DO
+    set sigueDailyQuest5 true
+	goto startQuest
+	
+startQuest: SAY "Hola $(user.name) veo que shivy te aviso sobre el problema con mi equipaje perdido"
+    goto habla2
+	
+habla2: SAY "sali desde el infierno a la superficie para tomarme unas vacaciones, fueron las mejores que tome en mi vida"
+    goto habla3
+	
+habla3: SAY "Pero cuando estaba volviendo mis maletas se perdieron, se que soy un poco despistado pero nunca me habia pasado esto"
+    goto pista
+	
+pista: SAY "la ultima vez que las senti en mis manos fueron en un lugar con cristales preciosos por un lugar frio"
+    goto silence
+	
+finalState: DO
+    self.state contento
+	after 0.5 final
+	
+final: SAY "Gracias $(user.name) no se que haría sin ti que conoces mas este mundo que yo"
+    goto final2
+	
+final2: SAY "Como agradecimiento mi querido amigo felino te daré una peluca que esta muy a la moda en el infierno"
+    goto gift
+	
+gift: DO
+    levelup.explorer 250
+	set dailyQuestComplete5 1
+	track.event MISIONES:2018:EQUIPAJE:DIABLO true
+	modal.award "PELUCA INFERNAL" maletas.peloInfierno
+	goto silence2
+	
+desaparece: DO
+	self.state desaparece true
+	after 1 silence
+
+silence: SAY " "
+	goto initial
+	
+silence2: SAY " "
+	goto invisible
+	
+invisible: DO
+	self.enabled false
+	self.visible false
+	

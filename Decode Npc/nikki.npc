@@ -1,0 +1,79 @@
+define
+	shared stored dailyQuest6
+	shared stored dailyQuestComplete6
+	shared stored dailyQuestTime6
+	shared stored dailyQuestObj6
+	shared stored sigueDailyQuest6
+	
+initial: FORK invisible | setDailyQuestComplete_6
+	null $(dailyQuest6)
+	
+setDailyQuestComplete_6: FORK join | invisible
+	null $(dailyQuestComplete6)
+	
+join: FORK start | invisible
+	eq $(time.day) $(dailyQuestTime6)
+
+start: DO
+    on activate chackTieneObjeto
+	
+chackTieneObjeto: FORK checkStatus | finalState
+	null $(dailyQuestObj6)
+	
+checkStatus: FORK setSigue | pista
+	null $(sigueDailyQuest6)
+	
+setSigue: DO
+    set sigueDailyQuest6 true
+	goto startQuest
+	
+startQuest: SAY "Hola $(user.name) veo que shivy te aviso sobre el problema con mi equipaje perdido"
+    goto habla2
+	
+habla2: SAY "Siempre que voy a presentar mis shows llevo mi equipaje de la suerte, este contiene todo lo que necesito en mi trabajo"
+    goto habla3
+	
+habla3: SAY "Pero como soy muy desordenado, cuando salgo de los programas siempre me suelo olvidar algo"
+    goto pista
+	
+pista: SAY "La ultima vez que recuerdo tener la maleta fue en un show que presente en el parque, espero que sirva de algo"
+    goto silence
+	
+finalState: DO
+    self.state contento
+	after 0.5 final
+	
+final: SAY "Gracias $(user.name) no se que haría sin ti"
+    goto final2
+	
+final2: SAY "Como agradecimiento mi querido amigo felino te daré una peluca que me regalaron del ultimo programa que presenté"
+    goto final3
+	
+final3: SAY "y un preciado lapiz volador lookeado a mi estilo"
+    goto gift
+	
+gift: DO
+    levelup.explorer 250
+	set dailyQuestComplete6 1
+	track.event MISIONES:2018:EQUIPAJE:NIKKI true
+	modal.award "PELUCA COLORIDA" maletas.peloMulticolor
+	after 2 gift2
+	
+gift2: DO
+    modal.award "LAPIZ VOLADOR" maletas.lapizEstrella
+	goto silence2
+	
+desaparece: DO
+	self.state desaparece true
+	after 1 silence
+
+silence: SAY " "
+	goto initial
+	
+silence2: SAY " "
+	goto invisible
+	
+invisible: DO
+	self.enabled false
+	self.visible false
+	

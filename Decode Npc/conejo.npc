@@ -1,0 +1,82 @@
+define
+	shared stored dailyQuest7
+	shared stored dailyQuestComplete7
+	shared stored dailyQuestTime7
+	shared stored dailyQuestObj7
+	shared stored sigueDailyQuest7
+	
+initial: FORK invisible | setDailyQuestComplete_7
+	null $(dailyQuest7)
+	
+setDailyQuestComplete_7: FORK join | invisible
+	null $(dailyQuestComplete7)
+	
+join: FORK start | invisible
+	eq $(time.day) $(dailyQuestTime7)
+
+start: DO
+    on activate chackTieneObjeto
+	
+chackTieneObjeto: FORK checkStatus | finalState
+	null $(dailyQuestObj7)
+	
+checkStatus: FORK setSigue | pista
+	null $(sigueDailyQuest7)
+	
+setSigue: DO
+    set sigueDailyQuest7 true
+	goto startQuest
+	
+startQuest: SAY "Hola $(user.name) veo que shivy te aviso sobre el problema con mi equipaje perdido"
+    goto habla2
+	
+habla2: SAY "Cuando voy saltando algunas veces se me caen cosas pero me doy cuenta por que las escucho cuando caen"
+    goto habla3
+	
+habla3: SAY "Pero una vez cuando estaba paseando habia tanto ruido que no me podia oir a mi mismo"
+    goto pista
+	
+pista: SAY "esa fue la ultima vez que vi mi maleta, estaba lleno de autos y de gaturros"
+    goto advertencia
+	
+advertencia: SAY "Te advierto que mi maleta es diferente a las demas, esta salta"
+    goto advertencia2
+	
+advertencia2: SAY "Espero que no sea un reto para ti"
+    goto silence
+	
+finalState: DO
+    self.state contento
+	after 0.5 final
+	
+final: SAY "Gracias $(user.name) no se que haría sin tu ayuda, en esa maleta llevaba algunos huevos de pascua"
+    goto final2
+	
+final2: SAY "Como agradecimiento mi querido amigo felino te daré un moño y un gorro de conejo"
+    goto gift
+	
+gift: DO
+    levelup.explorer 250
+	set dailyQuestComplete7 1
+	track.event MISIONES:2018:EQUIPAJE:PASCUAL true
+	modal.award "MOÑO ROSA" maletas.monioConejo
+	after 2 gorroConejo
+	
+gorroConejo: DO
+    modal.award "SOMBRERO DE CONEJO" maletas.pelucaConejo
+	goto silence2
+	
+desaparece: DO
+	self.state desaparece true
+	after 1 silence
+
+silence: SAY " "
+	goto initial
+	
+silence2: SAY " "
+	goto invisible
+	
+invisible: DO
+	self.enabled false
+	self.visible false
+	

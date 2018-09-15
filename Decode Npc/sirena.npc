@@ -1,0 +1,76 @@
+define
+	shared stored dailyQuest4
+	shared stored dailyQuestComplete4
+	shared stored dailyQuestTime4
+	shared stored dailyQuestObj4
+	shared stored sigueDailyQuest4
+	
+initial: FORK invisible | setDailyQuestComplete_4
+	null $(dailyQuest4)
+	
+setDailyQuestComplete_4: FORK join | invisible
+	null $(dailyQuestComplete4)
+	
+join: FORK start | invisible
+	eq $(time.day) $(dailyQuestTime4)
+
+start: DO
+    on activate chackTieneObjeto
+	
+chackTieneObjeto: FORK checkStatus | finalState
+	null $(dailyQuestObj4)
+	
+checkStatus: FORK setSigue | pista
+	null $(sigueDailyQuest4)
+	
+setSigue: DO
+    set sigueDailyQuest1 true
+	goto startQuest
+	
+startQuest: SAY "Hola $(user.name) veo que shivy te aviso sobre mi problema con el equipaje, este ademas contenia mi collar de perlas"
+    goto habla2
+	
+habla2: SAY "esta vez decidí alejarme un poco de la vida en el mar y explorar un poco más la superficie"
+    goto pista
+	
+pista: SAY "Recuerdo que el último lugar que visité habían flores, pasto y juegos"
+    goto noMorePista
+	
+noMorePista: SAY "Eso es lo último que me acuerdo de mi viaje, espero que te sirva de ayuda para encontrarla"
+    goto silence
+	
+finalState: DO
+    self.state contento
+	after 0.5 final
+	
+final: SAY "Gracias $(user.name) no se que haría sin ti, por suerte el equipaje aun conservaba mi collar"
+    goto final2
+	
+final2: SAY "Como agradecimiento te daré una peluca que me compré en otro viaje y un helado de dos sabores"
+    goto gift
+	
+gift: DO
+    levelup.explorer 250
+	set dailyQuestComplete4 1
+	track.event MISIONES:2018:EQUIPAJE:SIRENA true
+	modal.award "PELUCA A LA MODA" maletas.pelo
+	after 2 gift2
+	
+gift2: DO
+    modal.award "HELADO BISADOR" maletas.helado
+	goto silence2
+	
+desaparece: DO
+	self.state desaparece true
+	after 1 silence
+
+silence: SAY " "
+	goto initial
+	
+silence2: SAY " "
+	goto invisible
+	
+invisible: DO
+	self.enabled false
+	self.visible false
+	

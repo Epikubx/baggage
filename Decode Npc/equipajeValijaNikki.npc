@@ -1,0 +1,33 @@
+define
+	shared stored dailyQuest6
+	shared stored dailyQuestComplete6
+	shared stored dailyQuestTime6
+	shared stored dailyQuestObj6
+	shared stored sigueDailyQuest6
+	
+initial: FORK invisible | setDailyQuestComplete_6
+	null $(dailyQuest6)
+	
+setDailyQuestComplete_6: FORK join | invisible
+	null $(dailyQuestComplete6)
+	
+join: FORK checkStatus | invisible
+	eq $(time.day) $(dailyQuestTime6)
+
+checkStatus: FORK invisible | chackTieneObjeto
+	null $(sigueDailyQuest6)
+	
+chackTieneObjeto: FORK start | invisible
+	null $(dailyQuestObj6)
+	
+start: DO
+    on activate daPemio
+	
+daPemio: DO
+    set dailyQuestObj6 1
+	modal.award "MALETA DE NIKKI FORTUNA" maletas.valijaNikkiItem
+	goto invisible
+	
+invisible: DO
+    self.enabled false
+	self.visible false

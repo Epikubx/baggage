@@ -1,0 +1,33 @@
+define
+	shared stored dailyQuest4
+	shared stored dailyQuestComplete4
+	shared stored dailyQuestTime4
+	shared stored dailyQuestObj4
+	shared stored sigueDailyQuest4
+	
+initial: FORK invisible | setDailyQuestComplete_4
+	null $(dailyQuest4)
+	
+setDailyQuestComplete_4: FORK join | invisible
+	null $(dailyQuestComplete4)
+	
+join: FORK checkStatus | invisible
+	eq $(time.day) $(dailyQuestTime4)
+
+checkStatus: FORK invisible | chackTieneObjeto
+	null $(sigueDailyQuest4)
+	
+chackTieneObjeto: FORK start | invisible
+	null $(dailyQuestObj4)
+	
+start: DO
+    on activate daPemio
+	
+daPemio: DO
+    set dailyQuestObj4 1
+	modal.award "MALETA DE SIRENA" maletas.valijaSirenaItem
+	goto invisible
+	
+invisible: DO
+    self.enabled false
+  	self.visible false

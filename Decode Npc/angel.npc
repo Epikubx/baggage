@@ -1,0 +1,79 @@
+define
+	shared stored dailyQuest1
+	shared stored dailyQuestComplete1
+	shared stored dailyQuestTime1
+	shared stored dailyQuestObj1
+	shared stored sigueDailyQuest1
+	
+initial: FORK invisible | setDailyQuestComplete_1
+	null $(dailyQuest1)
+	
+setDailyQuestComplete_1: FORK join | invisible
+	null $(dailyQuestComplete1)
+	
+join: FORK start | invisible
+	eq $(time.day) $(dailyQuestTime1)
+
+start: DO
+    on activate chackTieneObjeto
+	
+chackTieneObjeto: FORK checkStatus | finalState
+	null $(dailyQuestObj1)
+	
+checkStatus: FORK setSigue | pista
+	null $(sigueDailyQuest1)
+	
+setSigue: DO
+    set sigueDailyQuest1 true
+	goto startQuest
+	
+startQuest: SAY "Hola $(user.name) veo que shivy te aviso sobre mi problema con el equipaje"
+    goto habla2
+	
+habla2: SAY "Siempre que vuelo soy un poco distraido y en esta ocasión perdí mi maleta"
+    goto pista
+	
+pista: SAY "Recuerdo que el último lugar en el que las vi era un lugar lleno de hojas, rodeado de agua"
+    goto pista2
+	
+pista2: SAY "Mi maleta a diferencia de las demás vuela, pero se cansa rápido"
+    goto noMorePista
+	
+noMorePista: SAY "Eso es todo lo que te puedo decir, espero que sirva de algo"
+    goto silence
+	
+finalState: DO
+    self.state contento
+	after 0.5 final
+	
+final: SAY "Gracias $(user.name) veo que eres más inteligente que el mismisimo rey de los cielos"
+    goto final2
+	
+final2: SAY "Como agradecimiento te daré un estante de nube y mi asiento de nube"
+    goto gift
+	
+gift: DO
+    levelup.explorer 250
+	set dailyQuestComplete1 1
+	track.event MISIONES:2018:EQUIPAJE:ANGEL true
+	modal.award "ESTANTE DE NUBE" maletas.estanteNube
+	after 2 gift2
+	
+gift2: DO
+    modal.award "SILLA DE NUBE" maletas.nube
+	goto silence2
+	
+desaparece: DO
+	self.state desaparece true
+	after 1 silence
+
+silence: SAY " "
+	goto initial
+	
+silence2: SAY " "
+	goto invisible
+	
+invisible: DO
+	self.enabled false
+	self.visible false
+	

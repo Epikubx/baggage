@@ -1,0 +1,41 @@
+define
+	shared stored dailyQuest7
+	shared stored dailyQuestComplete7
+	shared stored dailyQuestTime7
+	shared stored dailyQuestObj7
+	shared stored sigueDailyQuest7
+	
+initial: FORK invisible | setDailyQuestComplete_7
+	null $(dailyQuest7)
+	
+setDailyQuestComplete_7: FORK join | invisible
+	null $(dailyQuestComplete7)
+	
+join: FORK checkStatus | invisible
+	eq $(time.day) $(dailyQuestTime7)
+
+checkStatus: FORK invisible | chackTieneObjeto
+	null $(sigueDailyQuest7)
+	
+chackTieneObjeto: FORK move | invisible
+	null $(dailyQuestObj7)
+	
+move: DO
+	self.state active
+	self.moveTo $(rand.round.8-22) $(rand.round.3-12)
+	on arrived arrived
+
+arrived: DO
+    on activate daPemio
+	self.state idle
+	after $(rand.round.2-3) move
+	
+daPemio: DO
+    set dailyQuestObj7 1
+	modal.award "MALETA DE CONEJO" maletas.valijaConejoItem
+	goto invisible
+	
+invisible: DO
+    self.enabled false
+  	self.visible false
+	self.state off

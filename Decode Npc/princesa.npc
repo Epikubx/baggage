@@ -1,0 +1,75 @@
+define
+	shared stored dailyQuest2
+	shared stored dailyQuestComplete2
+	shared stored dailyQuestTime2
+	shared stored dailyQuestObj2
+	shared stored sigueDailyQuest2
+	
+initial: FORK invisible | setDailyQuestComplete_2
+	null $(dailyQuest2)
+	
+setDailyQuestComplete_2: FORK join | invisible
+	null $(dailyQuestComplete2)
+	
+join: FORK start | invisible
+	eq $(time.day) $(dailyQuestTime2)
+
+start: DO
+    on activate chackTieneObjeto
+	
+chackTieneObjeto: FORK checkStatus | finalState
+	null $(dailyQuestObj2)
+	
+checkStatus: FORK setSigue | pista
+	null $(sigueDailyQuest2)
+	
+setSigue: DO
+    set sigueDailyQuest2 true
+	goto startQuest
+	
+startQuest: SAY "Hola $(user.name) veo que shivy te aviso sobre mi problema real"
+    goto habla2
+	
+habla2: SAY "los guardias traian las maletas de toda la familia real y la mia se cayo en el camino"
+    goto habla3
+	
+habla3: SAY "Les pregunte si se acordaban algo cuando iban en el carruaje y me dijeron"
+    goto pista
+	
+pista: SAY "Estaban pasando por un lugar frio cuando una fuerte brisa hizo tambalear todo carruaje"
+    goto noMorePista
+	
+noMorePista: SAY "Eso es todo lo que se acuerdan, espero que te sirva de ayuda para encontrar mi maleta"
+    goto silence
+	
+finalState: DO
+    self.state contento
+	after 0.5 final
+	
+final: SAY "Gracias $(user.name) por ayudarme eres una muy buena persona"
+    goto final2
+	
+final2: SAY "Como agradecimiento te daré uno de mis ponis"
+    goto gift
+	
+gift: DO
+    levelup.explorer 250
+	set dailyQuestComplete2 1
+	track.event MISIONES:2018:EQUIPAJE:PRINCESA true
+	modal.award "PONY" maletas.poni
+	goto silence2
+	
+desaparece: DO
+	self.state desaparece true
+	after 1 silence
+
+silence: SAY " "
+	goto initial
+	
+silence2: SAY " "
+	goto invisible
+	
+invisible: DO
+	self.enabled false
+	self.visible false
+	

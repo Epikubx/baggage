@@ -1,0 +1,436 @@
+define
+	shared stored dailyQuest
+	shared stored hablaShivy
+	shared stored dailyQuestPart1
+	shared stored dailyQuest1
+	shared stored dailyQuest2
+	shared stored dailyQuest3
+	shared stored dailyQuest4
+	shared stored dailyQuest5
+	shared stored dailyQuest6
+	shared stored dailyQuest7
+    shared stored dailyQuestTime1
+	shared stored dailyQuestTime2
+	shared stored dailyQuestTime3
+	shared stored dailyQuestTime4
+	shared stored dailyQuestTime5
+	shared stored dailyQuestTime6
+	shared stored dailyQuestTime7
+	shared stored dailyQuestComplete1
+	shared stored dailyQuestComplete2
+	shared stored dailyQuestComplete3
+	shared stored dailyQuestComplete4
+	shared stored dailyQuestComplete5
+	shared stored dailyQuestComplete6
+	shared stored dailyQuestComplete7
+
+initial: FORK initial2 | invisible
+  	null $(dailyQuestPart1)
+	
+initial2: FORK new | start
+    null $(hablaShivy)
+	
+new: DO
+    self.state new
+	goto start
+	
+start: DO
+	on activate checkStatus
+	
+checkStatus: FORK checkStatus2 | checkStatusTimeQuest1
+	null $(dailyQuest1)
+	
+checkStatus2: FORK checkStatus3 | checkStatusTimeQuest2
+	null $(dailyQuest2)
+	
+checkStatus3: FORK checkStatus4 | checkStatusTimeQuest3
+	null $(dailyQuest3)
+	
+checkStatus4: FORK checkStatus5 | checkStatusTimeQuest4
+	null $(dailyQuest4)
+	
+checkStatus5: FORK checkStatus6 | checkStatusTimeQuest5
+	null $(dailyQuest5)
+	
+checkStatus6: FORK checkStatus7 | checkStatusTimeQuest6
+	null $(dailyQuest6)
+	
+checkStatus7: FORK join | checkStatusTimeQuest7
+	null $(dailyQuest7)
+		 
+
+checkStatusTimeQuest1: FORK CheckQuest_1 | checkStatusTimeQuest2
+	eq $(time.day) $(dailyQuestTime1)
+	
+checkStatusTimeQuest2: FORK CheckQuest_2 | checkStatusTimeQuest3
+	eq $(time.day) $(dailyQuestTime2)
+	
+checkStatusTimeQuest3: FORK CheckQuest_3 | checkStatusTimeQuest4
+	eq $(time.day) $(dailyQuestTime3)
+	
+checkStatusTimeQuest4: FORK CheckQuest_4 | checkStatusTimeQuest5
+	eq $(time.day) $(dailyQuestTime4)
+	
+checkStatusTimeQuest5: FORK CheckQuest_5 | checkStatusTimeQuest6
+	eq $(time.day) $(dailyQuestTime5)
+	
+checkStatusTimeQuest6: FORK CheckQuest_6 | checkStatusTimeQuest7
+	eq $(time.day) $(dailyQuestTime6)
+	
+checkStatusTimeQuest7: FORK CheckQuest_7 | join
+	eq $(time.day) $(dailyQuestTime7)
+	
+join: FORK talkDesaparece | aparece
+	eq $(time.day) $(dailyQuest)
+
+aparece: DO
+    self.state idle
+	goto checkeaHablo
+	
+checkeaHablo: FORK talkState | giveDailyRandom
+    null $(hablaShivy)
+	
+talkState: DO
+    self.state active
+	goto talk1
+	
+talk1: SAY "HOLA $(user.name), VINE A RECURRIR TU AYUDA"
+	goto talk12
+	
+talk12: SAY "YA QUE ESTOY MUY SOFOCADA POR EL TRABAJO EXTRA QUE ME CAUSAN ALGUNAS PERSONAS"
+    goto talk2
+	
+talk2: SAY "ME LLAMAN PIDIENDO AYUDA PARA RESOLVER ALGUNOS DE SUS PROBLEMAS"
+	goto talk21
+	
+talk21: SAY "TE QUERÍA PEDIR SI PODRÍAS AYUDARLOS, ESTOS TE RECOMPENZARAN"
+    goto talk3
+
+talk3: SAY "PASATE CADA DIA DE ESTA SEMANA PARA AYUDAR A UN PERSONAJE DIFERENTE"
+	goto seteaYaHablo
+	
+seteaYaHablo: DO
+    set hablaShivy true
+    goto giveDailyRandom
+
+giveDailyRandom: DO
+	goto giveDailyCheck_$(rand.round.1-7)
+
+giveDailyCheck_1: FORK giveQuest_1 | giveDailyCheckVuelve_1
+	null $(dailyQuest1)
+	
+giveDailyCheckVuelve_1: FORK giveQuest_1 | giveDailyRandom
+	null $(dailyQuestComplete1)
+
+giveDailyCheck_2: FORK giveQuest_2 | giveDailyCheckVuelve_2
+	null $(dailyQuest2)
+	
+giveDailyCheckVuelve_2: FORK giveQuest_2 | giveDailyRandom
+	null $(dailyQuestComplete2)
+
+giveDailyCheck_3: FORK giveQuest_3 | giveDailyRandom
+	null $(dailyQuest3)
+	
+giveDailyCheckVuelve_3: FORK giveQuest_3 | giveDailyRandom
+	null $(dailyQuestComplete3)
+
+giveDailyCheck_4: FORK giveQuest_4 | giveDailyRandom
+	null $(dailyQuest4)
+	
+giveDailyCheckVuelve_4: FORK giveQuest_4 | giveDailyRandom
+	null $(dailyQuestComplete4)
+
+giveDailyCheck_5: FORK giveQuest_5 | giveDailyRandom
+	null $(dailyQuest5)
+	
+giveDailyCheckVuelve_5: FORK giveQuest_5 | giveDailyRandom
+	null $(dailyQuestComplete5)
+
+giveDailyCheck_6: FORK giveQuest_6 | giveDailyRandom
+	null $(dailyQuest6)
+	
+giveDailyCheckVuelve_6: FORK giveQuest_6 | giveDailyRandom
+	null $(dailyQuestComplete6)
+
+giveDailyCheck_7: FORK giveQuest_7 | giveDailyRandom
+	null $(dailyQuest7)
+	
+giveDailyCheckVuelve_7: FORK giveQuest_7 | giveDailyRandom
+	null $(dailyQuestComplete7)
+
+giveQuest_1: DO
+	track.event FEATURES:DAILY_QUEST:ENTREGA 1
+	set dailyQuestTime1 $(time.day)
+	set dailyQuest $(time.day)
+	set dailyQuest1 true
+	set dailyQuestComplete1 null
+	set dailyQuestObj1 null
+	set sigueDailyQuest1 null
+	goto dioMision_1
+	
+activeMision1: DO
+    on activate dioMision_11
+	
+dioMision_1: DO
+    self.state idle
+	after 3 dioMision_11
+	
+dioMision_11: DO
+    self.state active
+	goto idleMision1
+	
+idleMision1: SAY "Recién me llamó miguel angel contandome que se fue de viaje pero cuando volvió no sabe donde dejo las maletas"
+    goto idleMision12
+	
+idleMision12: SAY "Lo encontrarás en la nieve, él te dará mas información sobre lo que sucedió"
+    goto vete
+	
+giveQuest_2: DO
+	track.event FEATURES:DAILY_QUEST:ENTREGA 2
+	set dailyQuestTime2 $(time.day)
+	set dailyQuest $(time.day)
+	set dailyQuest2 true
+	set dailyQuestComplete2 null
+	set dailyQuestObj2 null
+	set sigueDailyQuest2 null
+	goto dioMision_2
+	
+activeMision2: DO
+    on activate dioMision_21
+	
+dioMision_2: DO
+    self.state idle
+	after 3 dioMision_21
+	
+dioMision_21: DO
+    self.state idle
+	goto idleMision2
+	
+idleMision2: SAY "Recién me llamó la princesa cereza platicandome que se fue de viaje pero al regresar los guardias perdieron su maleta"
+    goto idleMision21
+	
+idleMision21: SAY "La encontrarás en su castillo en el reino cereza, ella te dará mas información sobre el asunto"
+    goto vete
+	
+giveQuest_3: DO
+	track.event FEATURES:DAILY_QUEST:ENTREGA 3
+	set dailyQuestTime3 $(time.day)
+	set dailyQuest $(time.day)
+	set dailyQuest3 true
+	set dailyQuestComplete3 null
+	set dailyQuestObj3 null
+	set sigueDailyQuest3 null
+	goto dioMision_3
+	
+dioMision_3: DO
+    self.state idle
+	after 3 dioMision_31
+	
+activeMision3: DO
+    on activate dioMision_31
+	
+dioMision_31: DO
+    self.state active
+	goto idleMision3
+	
+idleMision3: SAY "Recién me llamó el chaman de la isla platicandome que se fue de viaje pero al regresar perdio su maleta"
+    goto idleMision31
+	
+idleMision31: SAY "Lo encontrarás en la isla fatamorgana, él te dará mas información sobre el asunto"
+    goto vete
+	
+giveQuest_4: DO
+	track.event FEATURES:DAILY_QUEST:ENTREGA 4
+	set dailyQuestTime4 $(time.day)
+	set dailyQuest $(time.day)
+	set dailyQuest4 true
+	set dailyQuestComplete4 null
+	set dailyQuestObj4 null
+	set sigueDailyQuest4 null
+	goto dioMision_4
+	
+activeMision4: DO
+    on activate dioMision_41
+	
+dioMision_4: DO
+    self.state idle
+	after 3 dioMision_41
+	
+dioMision_41: DO
+    self.state active
+	goto idleMision4
+	
+idleMision4: SAY "Recién me llamó burbuja desde el agua platicandome como le había ido pero en su viaje por la superficie perdió su equipaje"
+    goto idleMision42
+	
+idleMision42: SAY "Lo encontrarás en el mar, ella te dará mas información sobre su equipaje"
+    goto vete	
+
+giveQuest_5: DO
+	track.event FEATURES:DAILY_QUEST:ENTREGA 5
+	set dailyQuestTime5 $(time.day)
+	set dailyQuest $(time.day)
+	set dailyQuest5 true
+	set dailyQuestComplete5 null
+	set dailyQuestObj5 null
+	set sigueDailyQuest5 null
+	goto dioMision_5
+	
+activeMision5: DO
+    on activate dioMision_51
+	
+dioMision_5: DO
+    self.state idle
+	after 3 dioMision_51
+	
+dioMision_51: DO
+    self.state active
+	goto idleMision5
+	
+idleMision5: SAY "Recién me llamó adrian pidiendome si lo podías ayudar a encontrar su equipaje"
+    goto idleMision52
+	
+idleMision52: SAY "Lo encontrarás en el playa, él te dará mas información sobre lo que paso con el equipaje"
+    goto vete
+	
+giveQuest_6: DO
+	track.event FEATURES:DAILY_QUEST:ENTREGA 6
+	set dailyQuestTime6 $(time.day)
+	set dailyQuest $(time.day)
+	set dailyQuest6 true
+	set dailyQuestComplete6 null
+	set dailyQuestObj6 null
+	set sigueDailyQuest6 null
+	goto dioMision_6
+	
+activeMision6: DO
+    on activate dioMision_61
+	
+dioMision_6: DO
+    self.state idle
+	after 3 dioMision_61
+	
+dioMision_61: DO
+    self.state active
+	goto idleMision6
+	
+idleMision6: SAY "Recién me llamó nikki fortuna pidiendome si lo podías ayudar a encontrar su equipaje"
+    goto idleMision62
+	
+idleMision62: SAY "Lo encontrarás en el recital, él te dará mas información sobre lo que paso con el equipaje"
+    goto vete
+	
+giveQuest_7: DO
+	track.event FEATURES:DAILY_QUEST:ENTREGA 7
+	set dailyQuestTime7 $(time.day)
+	set dailyQuest $(time.day)
+	set dailyQuest7 true
+	set dailyQuestComplete7 null
+	set dailyQuestObj7 null
+	set sigueDailyQuest7 null
+	goto dioMision_7
+	
+activeMision7: DO
+    on activate dioMision_71
+	
+dioMision_7: DO
+    self.state idle
+	after 3 dioMision_71
+	
+dioMision_71: DO
+    self.state active
+	goto idleMision7
+	
+idleMision7: SAY "Recién me llamó pascual, pidiendome si lo podíass ayudar a encontrar su equipaje"
+    goto idleMision72
+	
+idleMision72: SAY "Lo encontrarás en el parque, él te dará mas información sobre lo que paso con su equipaje"
+    goto vete
+	
+CheckQuest_1: FORK activeMision1 | CheckComplete_1
+	null $(dailyQuestComplete1)
+
+CheckQuest_2: FORK activeMision2 | CheckComplete_1
+	null $(dailyQuestComplete2)
+	
+CheckQuest_3: FORK activeMision3 | CheckComplete_1
+	null $(dailyQuestComplete3)
+	
+CheckQuest_4: FORK activeMision4 | CheckComplete_1
+	null $(dailyQuestComplete4)
+	
+CheckQuest_5: FORK activeMision5 | CheckComplete_1
+	null $(dailyQuestComplete5)
+	
+CheckQuest_6: FORK activeMision6 | CheckComplete_1
+	null $(dailyQuestComplete6)
+	
+CheckQuest_7: FORK activeMision7 | CheckComplete_1
+	null $(dailyQuestComplete7)
+
+CheckComplete_1: FORK talkDesaparece | CheckComplete_2
+	null $(dailyQuestComplete1)
+
+CheckComplete_2: FORK talkDesaparece | CheckComplete_3
+	null $(dailyQuestComplete2)
+	
+CheckComplete_3: FORK talkDesaparece | CheckComplete_4
+	null $(dailyQuestComplete3)
+	
+CheckComplete_4: FORK talkDesaparece | CheckComplete_5
+	null $(dailyQuestComplete4)
+	
+CheckComplete_5: FORK talkDesaparece | CheckComplete_6
+	null $(dailyQuestComplete5)
+	
+CheckComplete_6: FORK talkDesaparece | CheckComplete_7
+	null $(dailyQuestComplete6)
+	
+CheckComplete_7: FORK talkDesaparece | setDailyQuestComplete
+	null $(dailyQuestComplete7)
+	
+setDailyQuestComplete: DO
+    self.state active
+    set dailyQuestPart1 true
+	goto talkFinal
+	
+talkFinal: SAY "Gracias $(user.name) por ayudarlos, espero que nos volvamos a ver"
+	goto talkFinal_2
+	
+talkFinal_2: SAY "Por ahora estoy ocupadísima con el laburo me tengo que ir, CHAU CHAU felino"
+	goto desaparece2
+	
+talkDesaparece: DO
+    self.state active
+	goto talkDesaparece2	
+	
+talkDesaparece2: SAY "EN ESTE MOMENTO No puedo prestarte mucha atención porque estoy ocupadísima"
+	goto talkDesaparece3	
+	
+talkDesaparece3: SAY "VUELVE MAÑANA PARA OTRA MISIÓN"
+    goto desaparece
+	
+vete: SAY "Sal de aqui felino, estoy ocupadisima organizando bandas"
+    goto idleTel
+	
+idleTel: DO 
+    self.state idle
+	goto silence
+	
+desaparece: DO
+	self.state idle
+	after 1 silence
+	
+desaparece2: DO
+	self.state idle
+	after 1 silence2
+
+silence: SAY " "
+	goto initial
+	
+silence2: SAY " "
+    goto invisible
+	
+invisible: DO
+	self.enabled false
+	self.visible false
