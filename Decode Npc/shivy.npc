@@ -179,7 +179,10 @@ dioMision_11: DO
     self.state active
 	goto idleMision1
 	
-idleMision1: SAY "Recién me llamó miguel angel contandome que se fue de viaje pero cuando volvió no sabe donde dejo las maletas"
+idleMision1: SAY "Recién me llamó miguel angel contandome que se fue de viaje"
+    goto idleMision1_2
+	
+idleMision1_2: SAY "pero cuando volvió no sabe donde dejo las maletas"
     goto idleMision12
 	
 idleMision12: SAY "Lo encontrarás en la nieve, él te dará mas información sobre lo que sucedió"
@@ -206,7 +209,10 @@ dioMision_21: DO
     self.state idle
 	goto idleMision2
 	
-idleMision2: SAY "Recién me llamó la princesa cereza platicandome que se fue de viaje pero al regresar los guardias perdieron su maleta"
+idleMision2: SAY "Recién me llamó la princesa cereza platicandome que se fue de viaje"
+    goto idleMision2_2
+	
+idleMision2: SAY "pero al regresar los guardias perdieron su maleta"
     goto idleMision21
 	
 idleMision21: SAY "La encontrarás en su castillo en el reino cereza, ella te dará mas información sobre el asunto"
@@ -233,7 +239,10 @@ dioMision_31: DO
     self.state active
 	goto idleMision3
 	
-idleMision3: SAY "Recién me llamó el chaman de la isla platicandome que se fue de viaje pero al regresar perdio su maleta"
+idleMision3: SAY "Recién me llamó el chaman de la isla platicandome que se fue de viaje"
+    goto idleMision3_2
+	
+idleMision3_2: SAY "pero al regresar perdio su maleta"
     goto idleMision31
 	
 idleMision31: SAY "Lo encontrarás en la isla fatamorgana, él te dará mas información sobre el asunto"
@@ -260,7 +269,10 @@ dioMision_41: DO
     self.state active
 	goto idleMision4
 	
-idleMision4: SAY "Recién me llamó burbuja desde el agua platicandome como le había ido pero en su viaje por la superficie perdió su equipaje"
+idleMision4: SAY "Recién me llamó burbuja desde el agua platicandome como le había ido"
+    goto idleMision4_2
+	
+idleMision4: SAY "pero en su viaje por la superficie perdió su equipaje"
     goto idleMision42
 	
 idleMision42: SAY "Lo encontrarás en el mar, ella te dará mas información sobre su equipaje"
@@ -290,7 +302,7 @@ dioMision_51: DO
 idleMision5: SAY "Recién me llamó adrian pidiendome si lo podías ayudar a encontrar su equipaje"
     goto idleMision52
 	
-idleMision52: SAY "Lo encontrarás en el playa, él te dará mas información sobre lo que paso con el equipaje"
+idleMision52: SAY "Lo encontrarás en el playa, él te dará mas información sobre el equipaje"
     goto vete
 	
 giveQuest_6: DO
@@ -317,7 +329,7 @@ dioMision_61: DO
 idleMision6: SAY "Recién me llamó nikki fortuna pidiendome si lo podías ayudar a encontrar su equipaje"
     goto idleMision62
 	
-idleMision62: SAY "Lo encontrarás en el recital, él te dará mas información sobre lo que paso con el equipaje"
+idleMision62: SAY "Lo encontrarás en el recital, él te dará mas información sobre el equipaje"
     goto vete
 	
 giveQuest_7: DO
@@ -344,7 +356,7 @@ dioMision_71: DO
 idleMision7: SAY "Recién me llamó pascual, pidiendome si lo podíass ayudar a encontrar su equipaje"
     goto idleMision72
 	
-idleMision72: SAY "Lo encontrarás en el parque, él te dará mas información sobre lo que paso con su equipaje"
+idleMision72: SAY "Lo encontrarás en el parque, él te dará mas información sobre su equipaje"
     goto vete
 	
 CheckQuest_1: FORK activeMision1 | CheckComplete_1
