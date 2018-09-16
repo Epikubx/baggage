@@ -1,19 +1,21 @@
-﻿package
+﻿package 
 {
-   public dynamic class valijaDiablo extends NpcMamboAsset
-   {
-       
-      
-      public function valijaDiablo()
-      {
-         super();
-         addFrameScript(0,this.frame1);
-      }
-      
-      function frame1() : *
-      {
-         behavior = "equipajeValijaDiablo";
-         stop();
-      }
-   }
+
+    dynamic public class valijaDiablo_so extends NpcMamboAsset
+    {
+
+        public function valijaDiablo_so()
+        {
+            addFrameScript(0, frame1);
+            return;
+        }// end function
+
+        function frame1()
+        {
+            behavior = "valijaDiablo";
+            stop();
+            return;
+        }// end function
+
+    }
 }

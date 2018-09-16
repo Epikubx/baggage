@@ -1,10 +1,10 @@
 ﻿package 
 {
 
-    dynamic public class equipajeChaman extends NpcMamboAsset
+    dynamic public class princesa_so extends NpcMamboAsset
     {
 
-        public function equipajeChaman()
+        public function princesa_so()
         {
             addFrameScript(0, frame1);
             return;
@@ -12,11 +12,10 @@
 
         function frame1()
         {
-            behavior = "equipajeChaman";
-			stop();
+            behavior = "princesa";
+            stop();
             return;
         }// end function
 
     }
 }
-

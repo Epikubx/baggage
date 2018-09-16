@@ -1,10 +1,10 @@
 ﻿package 
 {
 
-    dynamic public class valijaAngel extends NpcMamboAsset
+    dynamic public class conejo_so extends NpcMamboAsset
     {
 
-        public function valijaAngel()
+        public function conejo_so()
         {
             addFrameScript(0, frame1);
             return;
@@ -12,10 +12,11 @@
 
         function frame1()
         {
-            behavior = "equipajeValijaAngel";
+            behavior = "conejo";
             stop();
             return;
         }// end function
 
     }
 }
+

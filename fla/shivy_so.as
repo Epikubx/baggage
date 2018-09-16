@@ -1,10 +1,10 @@
 ﻿package 
 {
 
-    dynamic public class equipajeConejo extends NpcMamboAsset
+    dynamic public class shivy_so extends NpcMamboAsset
     {
 
-        public function equipajeConejo()
+        public function shivy_so()
         {
             addFrameScript(0, frame1);
             return;
@@ -12,11 +12,10 @@
 
         function frame1()
         {
-            behavior = "equipajeConejo";
+            behavior = "shivy";
             stop();
             return;
         }// end function
 
     }
 }
-

@@ -1,10 +1,10 @@
 ﻿package 
 {
 
-    dynamic public class shivy extends NpcMamboAsset
+    dynamic public class nikki_so extends NpcMamboAsset
     {
 
-        public function shivy()
+        public function nikki_so()
         {
             addFrameScript(0, frame1);
             return;
@@ -12,10 +12,11 @@
 
         function frame1()
         {
-            behavior = "shivy";
+            behavior = "nikki";
             stop();
             return;
         }// end function
 
     }
 }
+
