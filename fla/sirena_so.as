@@ -12,7 +12,7 @@
 
         function frame1()
         {
-            behavior = "sirena";
+            behavior = "equipaje/sirena";
             stop();
             return;
         }// end function

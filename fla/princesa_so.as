@@ -12,7 +12,7 @@
 
         function frame1()
         {
-            behavior = "princesa";
+            behavior = "equipaje/princesa";
             stop();
             return;
         }// end function

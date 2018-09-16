@@ -12,7 +12,7 @@
 
         function frame1()
         {
-            behavior = "valijaChaman";
+            behavior = "equipaje/valijaChaman";
             stop();
             return;
         }// end function

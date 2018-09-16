@@ -12,7 +12,7 @@
 
         function frame1()
         {
-            behavior = "shivy";
+            behavior = "equipaje/shivy";
             stop();
             return;
         }// end function

@@ -12,7 +12,7 @@
 
         function frame1()
         {
-            behavior = "valijaConejo";
+            behavior = "equipaje/valijaConejo";
             stop();
             return;
         }// end function

@@ -12,7 +12,7 @@
 
         function frame1()
         {
-            behavior = "conejo";
+            behavior = "equipaje/conejo";
             stop();
             return;
         }// end function

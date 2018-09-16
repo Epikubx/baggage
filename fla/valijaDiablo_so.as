@@ -12,7 +12,7 @@
 
         function frame1()
         {
-            behavior = "valijaDiablo";
+            behavior = "equipaje/valijaDiablo";
             stop();
             return;
         }// end function
