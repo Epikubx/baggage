@@ -38,4 +38,3 @@ daPemio: DO
 invisible: DO
     self.enabled false
   	self.visible false
-	self.state off
