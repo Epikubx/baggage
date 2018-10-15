@@ -5,7 +5,7 @@
 		{
 			"reward1":
 			{
-				"prize": "~transportSlot.lapizPatita",
+				"prize": "~transport2.lapizPatita",
 				"slots": {
 					"slot1":"~Cabeza",
 					"slot2":"~Cabeza",
