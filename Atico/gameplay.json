@@ -1,0 +1,90 @@
+	"slotMachine": 
+	{
+		"price": 75,
+		"rewards":
+		{
+			"reward1":
+			{
+				"prize": "~transportSlot.lapizPatita",
+				"slots": {
+					"slot1":"~Cabeza",
+					"slot2":"~Cabeza",
+					"slot3":"~Cabeza"
+				},
+				"probability":0.001
+			},
+			"reward2":
+			{
+				"prize": "~transport2.naveExtraterrestre",
+				"slots": {
+					"slot1":"~Siete",
+					"slot2":"~Siete",
+					"slot3":"~Siete"
+				},
+				"probability": 0.002
+			},
+			
+			"reward3":
+			{
+				"prize": "~transport2.helicoptero",
+				"slots": {
+					"slot1":"~Diamante",
+					"slot2":"~Diamante",
+					"slot3":"~Diamante"
+				},
+				"probability": 0.002
+			},
+			"reward4":
+			{
+				"prize": "~halloween2018/album.card59",
+				"slots": {
+					"slot1":"~Campana",
+					"slot2":"~Campana",
+					"slot3":"~Campana"
+				},
+				"probability": 0.004
+			},
+			"reward5":
+			{
+				"prize": "~virtualGoods3.espejoEmbrujado",
+				"slots": {
+					"slot1":"~Limon",
+					"slot2":"~Limon",
+					"slot3":"~Limon"
+				},
+				"probability": 0.007
+			},
+		
+			"reward6":
+			{
+				"prize": "~virtualGoods3.calaca",
+				"slots": {
+					"slot1":"~Sandia",
+					"slot2":"~Sandia",
+					"slot3":"~Sandia"
+				},
+				"probability": 0.010
+			},
+			"reward7":
+			{
+				"prize": 200, 
+				"slots": {
+
+					"slot1":"~Cereza",
+					"slot2":"~Cereza",
+					"slot3":"~Cereza"
+				},
+				"probability": 0.1
+			},
+			"reward8":
+			{
+				"prize": 75,
+				"slots": {
+					"slot1":"~Cereza",
+					"slot2":"~Cereza",
+					"slot3":"~Random"
+				},
+				"probability": 0.2
+			}
+		}
+	},
