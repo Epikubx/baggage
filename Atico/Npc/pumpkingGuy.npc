@@ -1,0 +1,7 @@
+define
+
+initial: DO
+    on activate habla1
+	
+habla1: SAY " "
+    goto habla2
