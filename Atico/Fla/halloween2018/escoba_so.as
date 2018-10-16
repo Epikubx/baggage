@@ -12,7 +12,7 @@
 
         function frame1()
         {
-            behavior = "movable";
+            behavior = "escobaAtico";
             stop();
             return;
         }// end function

@@ -1,0 +1,11 @@
+initial: DO
+	goto move
+	
+move: DO
+	self.state active
+	self.moveTo $(rand.round.6-13) $(rand.round.3-12)
+	on arrived arrived
+
+arrived: DO
+	self.state idle
+	after $(rand.round.4-12) move

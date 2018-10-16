@@ -3,5 +3,23 @@ define
 initial: DO
     on activate habla1
 	
-habla1: SAY " "
+habla1: SAY "Hola $(user.name), he venido desde muy lejos"
     goto habla2
+	
+habla2: SAY "La bruja me prestó su ático para hospedarme por un tiempo"
+    goto habla3
+	
+habla3: SAY "La verdad es que no quería llegar hasta aquí, pero la niebla no me dejó avanzar"
+    goto habla4
+	
+habla4: SAY "A cambio, le regalé esta calabaza gigante"
+    goto habla5
+	
+habla5: SAY "¡Prueba suerte en ella para ganar grandes premios!"
+    goto habla6
+	
+habla6: SAY "Tendrás 20 intentos diarios, a menos que tengas pasaporte"
+    goto habla7
+	
+habla7: SAY "Buena suerte, La necesitarás..."
+    goto initial
