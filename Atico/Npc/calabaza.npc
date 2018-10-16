@@ -1,1 +1,36 @@
-ZGVmaW5lCiAgICBzaGFyZWQgc3RvcmVkIGludGVudG9zU2xvdEhveQoJc2hhcmVkIHN0b3JlZCBpbnRlbnRvc1Nsb3QKCmluaXRpYWw6IERPCglvbiBhY3RpdmF0ZSBjaGVjawoJCmNoZWNrOiBGT1JLIG9wZW4gfCBjaGVja0ludGVudG9zCgl1c2VyLmlzQ2l0aXplbgoJCm9wZW46IERPCgltb2RhbC5iYW5uZXIgc2xvdE1hY2hpbmVIYWxsb3dlZW4KCWFmdGVyIDEgaW5pdGlhbAoJCiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCiMjICAgICBOT1QgQ0lUSVpFTiBVU0VSICAgICMjCiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCgkKY2hlY2tJbnRlbnRvczogRk9SSyBjaGVja0RhdGUgfCBub3RDaXRpemVuCiAgICBlcSAkKGludGVudG9zU2xvdCkgMjAKCmNoZWNrRGF0ZTogRk9SSyBwYXNhcG9ydGUgfCBkZWNUcnlzCiAgICBlcSAkKGludGVudG9zU2xvdEhveSkgJCh0aW1lLmRheSkKCQpkZWNUcnlzOiBETwogICAgZGVjIGludGVudG9zU2xvdCAyMAoJZ290byBub3RDaXRpemVuCgpub3RDaXRpemVuOiBETwoJc2V0IGludGVudG9zU2xvdEhveSAkKHRpbWUuZGF5KQoJbW9kYWwuYmFubmVyIHNsb3RNYWNoaW5lSGFsbG93ZWVuCglhZnRlciAxIGluaXRpYWwKCQpwYXNhcG9ydGU6IERPCiAgICBtb2RhbC5iYW5uZXIgcGFzYXBvcnRlMgoJZ290byBpbml0aWFs
+define
+    shared stored intentosSlotHoy
+	shared stored intentosSlot
+
+initial: DO
+	on activate check
+	
+check: FORK open | checkIntentos
+	user.isCitizen
+	
+open: DO
+	modal.banner slotMachineHalloween
+	after 1 initial
+	
+#############################
+##     NOT CITIZEN USER    ##
+#############################
+	
+checkIntentos: FORK checkDate | notCitizen
+    eq $(intentosSlot) 20
+
+checkDate: FORK pasaporte | decTrys
+    eq $(intentosSlotHoy) $(time.day)
+	
+decTrys: DO
+    dec intentosSlot 20
+	goto notCitizen
+
+notCitizen: DO
+	set intentosSlotHoy $(time.day)
+	modal.banner slotMachineHalloween
+	after 1 initial
+	
+pasaporte: DO
+    modal.banner pasaporte2
+	goto initial
