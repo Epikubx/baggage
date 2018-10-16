@@ -1,1 +1,11 @@
-aW5pdGlhbDogRE8NCglnb3RvIG1vdmUNCgkNCm1vdmU6IERPDQoJc2VsZi5zdGF0ZSBhY3RpdmUNCglzZWxmLm1vdmVUbyAkKHJhbmQucm91bmQuNi0xMykgJChyYW5kLnJvdW5kLjMtMTIpDQoJb24gYXJyaXZlZCBhcnJpdmVkDQoNCmFycml2ZWQ6IERPDQoJc2VsZi5zdGF0ZSBpZGxlDQoJYWZ0ZXIgJChyYW5kLnJvdW5kLjQtMTIpIG1vdmUNCg==
+initial: DO
+	goto move
+	
+move: DO
+	self.state active
+	self.moveTo $(rand.round.6-13) $(rand.round.3-12)
+	on arrived arrived
+
+arrived: DO
+	self.state idle
+	after $(rand.round.4-12) move
