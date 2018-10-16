@@ -12,7 +12,7 @@
 
         function frame1()
         {
-            behavior = " ";
+            behavior = "calabaza";
             stop();
             return;
         }// end function
