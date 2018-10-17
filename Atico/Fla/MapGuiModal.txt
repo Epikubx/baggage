@@ -1,5 +1,5 @@
       "slotMachineHalloween":{
-         "name":"¡NUEVO VISITANTE!",
+         "name":"¡NUEVO TRAGAMONEDAS!",
          "id":43121,
          "coord":[5,5]
       },
