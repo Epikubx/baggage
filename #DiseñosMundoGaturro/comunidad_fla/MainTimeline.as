@@ -1,4 +1,4 @@
-﻿package pelosComunidad_fla
+﻿package comunidad_fla
 {
    import flash.display.MovieClip;
    import flash.system.Security;

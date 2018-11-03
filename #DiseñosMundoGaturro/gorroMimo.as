@@ -1,10 +1,10 @@
 ﻿package
 {
-   public dynamic class cuernos extends ClothMamboAsset
+   public dynamic class gorroMimo extends ClothMamboAsset
    {
        
       
-      public function cuernos()
+      public function gorroMimo()
       {
          super();
          addFrameScript(0,frame1);
@@ -12,7 +12,7 @@
       
       function frame1() : *
       {
-         clothes = {"hats":"cuernos_on"};
+         clothes = {"hats":"gorroMimoMundial_on"};
       }
    }
 }
