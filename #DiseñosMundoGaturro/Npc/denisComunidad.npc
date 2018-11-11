@@ -1,0 +1,26 @@
+initial: DO
+    on activate habla1
+	
+habla1: SAY "Hola $(user.name) es este puesto podrás encontrar"
+    goto habla2
+	
+habla2: SAY "Objetos hechos por la comunidad de mundo gaturro"
+    goto habla3
+	
+habla3: SAY "Si quieres ver tu objeto aquí"
+    goto habla4
+	
+habla4: SAY "Envia tu diseño a través de twitter"
+    goto habla5
+	
+habla5: SAY "con #DiseñosMundoGaturro"
+    goto habla6
+	
+habla6: SAY "No todos los diseños hechos por la comunidad"
+    goto habla7
+	
+habla7: SAY "Estarán en el catalogo, solo algunos"
+    goto habla8
+	
+habla8: SAY "Espero que te gusten"
+    goto initial
