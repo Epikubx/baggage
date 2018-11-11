@@ -1,0 +1,18 @@
+define 
+    shared stored questStone
+	
+initial: FORK FORK stand | checkAgua
+	null $(questStone)
+	
+checkAgua: FORK stand | tieneAgua
+	inventory.has 1 reyes2017/props.agua
+	
+tieneAgua: DO
+	on activate colecta
+	
+colecta: DO
+	modal.award "RECIPIENTE CON AGUA" reyes2017/props.agua
+	goto initial
+	
+stand: DO
+    self.enabled false
