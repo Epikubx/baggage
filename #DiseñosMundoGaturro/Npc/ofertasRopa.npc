@@ -1,0 +1,10 @@
+initial: DO
+	on activate open2
+	
+open2: DO
+    catalog comunidad
+	goto initial
+	
+open: DO
+	catalog oferta_ropa_dia$(time.day)
+	goto initial
