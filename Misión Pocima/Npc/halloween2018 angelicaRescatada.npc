@@ -1,0 +1,44 @@
+define 
+    shared stored questStone
+	shared stored questStoneFinished
+	
+initial: FORK introduce | checkItem
+	null $(questStone)
+	
+introduce: SAY "Hace años que no practicaba, sentí como si mi poder se hubiese acabo"
+    goto habla1
+	
+habla1: SAY "Pero valió la pena, después de varios intentos logré formarla"
+    goto habla2
+	
+habla2: SAY "Si te preguntas de qué estoy hablando..."
+    goto habla3
+	
+habla3: SAY "Busca estos objetos y tráemelos"
+    goto setea
+	
+setea: DO
+    set questStone 1
+	goto abreBanner
+	
+abreBanner: DO
+    modal.banner pocimaPiedra
+	goto initial
+	
+checkItem: FORK final0 | checkFinale
+    inventory.has 1 pocimaQuest.pocimaStone
+	
+checkFinale: FORK abreBanner | final0
+	null $(questStoneFinished)
+
+############# CUANDO TIENE LA POCIMA #################
+	
+final0: DO
+	after $(rand.round.5-15) idleFiesta
+	on activate final1 
+
+idleFiesta: SAY "¡VOLEMOS A LA GALA!"
+	goto silence
+
+final1: SAY "¡SUBE AL CALDERO Y VAMOS!"
+	goto silence
