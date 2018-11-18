@@ -1,0 +1,65 @@
+define 
+    shared stored epikubx
+	shared stored questStoneFinished
+	
+initial: FORK inicio | stateNormal
+    null $(epikubx/chatBruja) ### verifica si hablo con el personaje ###
+    
+chat: DO
+    self.state idle
+	on activate habla1
+
+inicio: DO
+    self.state chat  ### icono para que el usuario note algo nuevo y investigue ###
+    on activate stateChat
+	
+stateChat: DO
+	self.state idle
+	goto introduce
+	
+introduce: SAY "Hace años que no practicaba, sentí como si mi poder se hubiese acabo"
+    goto habla1
+	
+habla1: SAY "Pero valió la pena, después de varios intentos logré formarla"
+    goto habla2
+	
+habla2: SAY "Si te preguntas de qué estoy hablando..."
+    goto habla3
+	
+habla3: SAY "Busca estos objetos y tráemelos"
+    goto setea
+	
+setea: DO
+    set epikubx/chatBruja 1 ### está aca abajo para saber si el usuario leyó toda la "historia" ###
+	goto abreBanner
+	
+abreBanner: DO
+    modal.banner pocimaPiedra
+	goto initial
+	
+stateNormal: DO
+    self.state idle
+	on activate checkItem
+	
+checkItem: FORK despedida | checkFinale
+    inventory.has 1 pocimaQuest.pocimaStone
+	
+checkFinale: FORK abreBanner | despedida
+	null $(questStoneFinished)
+
+############# CUANDO TIENE LA POCIMA #################
+	
+despedida: DO
+	goto despedida$(rand.round.1-3)
+despedida1: SAY "Espero verte pronto bola de pelos, jijiji"
+	goto silence
+despedida2: SAY "Cuidado con los espectros a la salida, jijiji"
+	goto silence
+despedida3: SAY "Buena suerte, la necesitarás, jijiji"
+	goto silence
+	
+silence: DO
+	goto postSilence
+	
+postSilence: SAY " "
+	goto initial

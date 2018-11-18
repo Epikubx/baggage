@@ -1,12 +1,10 @@
-package
+﻿package
 {
    import flash.display.MovieClip;
    
    public class NpcMamboAsset extends MamboAsset
    {
        
-      
-      public var chat_ph:MovieClip;
       
       public var behavior:String;
       

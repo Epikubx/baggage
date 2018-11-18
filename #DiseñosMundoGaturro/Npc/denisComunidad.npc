@@ -1,7 +1,24 @@
-initial: DO
-    on activate habla1
+define 
+    shared stored epikubx
+	shared stored questStoneFinished
+
+initial: FORK inicio | chat
+    null $(epikubx/chatDenis) ### verifica si hablo con el personaje ###
+    
+chat: DO
+    self.state idle
+	on activate habla1
+
+inicio: DO
+    self.state chat  ### icono para que el usuario note algo nuevo y investigue ###
+    on activate setChat
 	
-habla1: SAY "Hola $(user.name) es este puesto podrás encontrar"
+setChat: DO
+    set epikubx/chatDenis 1
+	self.state idle
+	goto habla1
+	
+habla1: SAY "Hola $(user.name), mi nombre es Epikubx en este puesto podrás encontrar"
     goto habla2
 	
 habla2: SAY "Objetos hechos por la comunidad de mundo gaturro"
@@ -22,5 +39,11 @@ habla6: SAY "No todos los diseños hechos por la comunidad"
 habla7: SAY "Estarán en el catalogo, solo algunos"
     goto habla8
 	
-habla8: SAY "Espero que te gusten"
-    goto initial
+habla8: SAY "¡Espero que te guste esta primera tanda de objetos!"
+    goto silence
+	
+silence: DO
+	goto postSilence
+	
+postSilence: SAY " "
+	goto initial
