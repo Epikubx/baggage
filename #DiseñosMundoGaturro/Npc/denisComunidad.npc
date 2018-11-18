@@ -18,7 +18,7 @@ setChat: DO
 	self.state idle
 	goto habla1
 	
-habla1: SAY "Hola $(user.name), mi nombre es Epikubx en este puesto podrás encontrar"
+habla1: SAY "Hola $(user.name), mi nombre es Epikubx en este aparador podrás encontrar"
     goto habla2
 	
 habla2: SAY "Objetos hechos por la comunidad de mundo gaturro"
@@ -27,19 +27,16 @@ habla2: SAY "Objetos hechos por la comunidad de mundo gaturro"
 habla3: SAY "Si quieres ver tu objeto aquí"
     goto habla4
 	
-habla4: SAY "Envia tu diseño a través de twitter"
+habla4: SAY "Envia tu diseño a través de twitter con el hashtag #DiseñosMundoGaturro"
     goto habla5
 	
-habla5: SAY "con #DiseñosMundoGaturro"
+habla5: SAY "¡No todos los diseños hechos por la comunidad"
     goto habla6
 	
-habla6: SAY "No todos los diseños hechos por la comunidad"
+habla6: SAY "Estarán en el catalogo, solo algunos!"
     goto habla7
 	
-habla7: SAY "Estarán en el catalogo, solo algunos"
-    goto habla8
-	
-habla8: SAY "¡Espero que te guste esta primera tanda de objetos!"
+habla7: SAY "¡Espero que te guste esta primera tanda de objetos!"
     goto silence
 	
 silence: DO
