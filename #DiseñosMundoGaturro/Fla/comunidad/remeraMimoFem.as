@@ -14,7 +14,7 @@
       {
          clothes = {
             "cloth":"remeraMimoFem_on",
-            "arm":"remeraMimoFem_brazo_on",
+            "arm":"remeraMimoFem_brazo_on"
          };
       }
    }
