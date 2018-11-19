@@ -1,0 +1,10 @@
+      "pocimaQuest":{
+         "name":"NUEVA POCIMA",
+         "id":43121,
+         "coord":[5,11]
+      },
+      "comunidad":{
+         "name":"¡OBJETOS HECHOS POR LA COMUNIDAD!",
+         "id":33860,
+         "coord":[7,6]
+      },
