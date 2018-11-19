@@ -102,7 +102,7 @@
          Security.allowDomain("*");
          Security.allowInsecureDomain("*");
          pocima = {
-            "asset":"comunidad.pocimaStone",
+            "asset":"pocimaQuest.pocimaStone",
             "name":"MAUVAIS BOISSON"
          };
          ingredientes = [{

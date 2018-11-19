@@ -19,7 +19,7 @@
             "accesories":"",
             "cloth":"remeraMimo_on",
             "leg":"jeanMimo_on",
-            "foot":"botaMimo_on",
+            "foot":"gatupacks/hw18.hide_hw18_on",
             "arm":"remeraMimo_brazo_on",
             "armFore":"",
             "armBack":"",
