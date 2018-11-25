@@ -24,7 +24,12 @@ habla1: SAY "Hola $(user.name), mi nombre es Epikubx"
 habla2_1: SAY "En este aparador podrás encontrar"
     goto habla2
 	
-habla2: SAY "Objetos hechos por la comunidad de mundo gaturro"
+habla2: SAY ""
+	
+habla7: SAY "¡Espero que te guste esta primera tanda de objetos!"
+    goto silence
+	
+/*habla2: SAY "Objetos hechos por la comunidad de mundo gaturro"
     goto habla3
 	
 habla3: SAY "Si quieres ver tu objeto en el catálogo"
@@ -37,10 +42,7 @@ habla5: SAY "¡No todos los diseños hechos por la comunidad"
     goto habla6
 	
 habla6: SAY "Estarán en el catálogo, solo algunos!"
-    goto habla7
-	
-habla7: SAY "¡Espero que te guste esta primera tanda de objetos!"
-    goto silence
+    goto habla7*/
 	
 silence: DO
 	goto postSilence

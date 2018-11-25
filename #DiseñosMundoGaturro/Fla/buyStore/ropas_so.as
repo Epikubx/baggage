@@ -1,4 +1,4 @@
-package
+﻿package
 {
    public dynamic class ropas_so extends NpcMamboAsset
    {
@@ -13,6 +13,7 @@ package
       function frame1() : *
       {
          behavior = "ofertasRopa";
+		  stop();
       }
    }
 }
