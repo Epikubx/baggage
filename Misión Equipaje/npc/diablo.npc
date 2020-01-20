@@ -30,13 +30,16 @@ setSigue: DO
 startQuest: SAY "Hola $(user.name) veo que shivy te aviso sobre el problema con mi equipaje perdido"
     goto habla2
 	
-habla2: SAY "sali desde el infierno a la superficie para tomarme unas vacaciones, fueron las mejores que tome en mi vida"
+habla2: SAY "salí desde el infierno para tomarme unas vacaciones, fueron las mejores que tome en mi vida"
     goto habla3
 	
-habla3: SAY "Pero cuando estaba volviendo mis maletas se perdieron, se que soy un poco despistado pero nunca me habia pasado esto"
-    goto pista
+habla3: SAY "Pero cuando estaba volviendo mis maletas se perdieron"
+    goto habla4
 	
-pista: SAY "la ultima vez que las senti en mis manos fueron en un lugar con cristales preciosos por un lugar frio"
+habla4: SAY "se que soy un poco despistado pero nunca me habia pasado esto"
+	goto pista
+	
+pista: SAY "la ultima vez que lo sentí en mis manos fue en un lugar con cristales preciosos y tenía frio"
     goto silence
 	
 finalState: DO
@@ -46,13 +49,14 @@ finalState: DO
 final: SAY "Gracias $(user.name) no se que haría sin ti que conoces mas este mundo que yo"
     goto final2
 	
-final2: SAY "Como agradecimiento mi querido amigo felino te daré una peluca que esta muy a la moda en el infierno"
+final2: SAY "Como agradecimiento mi querido amigo felino te daré una peluca que esta a la moda en el infierno"
     goto gift
 	
 gift: DO
     levelup.explorer 250
 	set dailyQuestComplete5 1
-	track.event MISIONES:2018:EQUIPAJE:DIABLO true
+	track.event MISIONES:2020:EQUIPAJE:DIABLO true
+	inventory.remove 1 maletas.valijaDiabloItem
 	modal.award "PELUCA INFERNAL" maletas.peloInfierno
 	goto silence2
 	

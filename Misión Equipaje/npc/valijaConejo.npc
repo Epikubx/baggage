@@ -36,5 +36,5 @@ daPemio: DO
 	goto invisible
 	
 invisible: DO
-    self.enabled false
-  	self.visible false
+	self.enabled false
+	self.visible false

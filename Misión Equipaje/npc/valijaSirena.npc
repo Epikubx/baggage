@@ -17,14 +17,35 @@ join: FORK checkStatus | invisible
 checkStatus: FORK invisible | chackTieneObjeto
 	null $(sigueDailyQuest4)
 	
-chackTieneObjeto: FORK start | invisible
+chackTieneObjeto: FORK checkTienePincho | invisible
 	null $(dailyQuestObj4)
 	
-start: DO
-    on activate daPemio
+checkTienePincho: FORK tienePincho | beforeBuscaPincho
+	inventory.has 1 navidad2018/props.hilo
 	
-daPemio: DO
+beforeBuscaPincho: DO
+	self.state idle
+	on activate buscaPincho
+	
+buscaPincho: DO
+	modal.show "NECESITAS DE UN OBJETO PUNTIAGUDO PARA PODER ROMPER LA BURBUJA, BUSCA EN UNA MADRIGUERA" navidad2018/props.hilo
+	goto initial
+	
+tienePincho: DO
+	self.state idle
+    on activate pinchaBurbuja
+	
+pinchaBurbuja: DO
+	self.state boom
+	after 1 valijaPiso
+	
+valijaPiso: DO
+	self.state activa
+	on activate daPremio
+	
+daPremio: DO
     set dailyQuestObj4 1
+	self.state off
 	modal.award "MALETA DE SIRENA" maletas.valijaSirenaItem
 	goto invisible
 	

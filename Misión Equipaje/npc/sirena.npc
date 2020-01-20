@@ -24,14 +24,20 @@ checkStatus: FORK setSigue | pista
 	null $(sigueDailyQuest4)
 	
 setSigue: DO
-    set sigueDailyQuest1 true
+    set sigueDailyQuest4 true
 	goto startQuest
 	
-startQuest: SAY "Hola $(user.name) veo que shivy te aviso sobre mi problema con el equipaje, este ademas contenia mi collar de perlas"
-    goto habla2
+startQuest: SAY "Hola $(user.name) veo que shivy te aviso sobre mi equipaje perdido"
+    goto habla1
 	
-habla2: SAY "esta vez decidí alejarme un poco de la vida en el mar y explorar un poco más la superficie"
-    goto pista
+habla1: SAY "Necesito que lo encuentres, por que contenía mi preciado collar de perlas"
+	goto habla2
+	
+habla2: SAY "lo perdí por querer alejarme un poco de la vida en el mar"
+    goto habla3
+	
+habla3: SAY "para salir a explorar un poco más la superficie"
+	goto pista
 	
 pista: SAY "Recuerdo que el último lugar que visité habían flores, pasto y juegos"
     goto noMorePista
@@ -52,7 +58,8 @@ final2: SAY "Como agradecimiento te daré una peluca que me compré en otro viaj
 gift: DO
     levelup.explorer 250
 	set dailyQuestComplete4 1
-	track.event MISIONES:2018:EQUIPAJE:SIRENA true
+	track.event MISIONES:2020:EQUIPAJE:SIRENA true
+	inventory.remove 1 maletas.valijaSirenaItem
 	modal.award "PELUCA A LA MODA" maletas.pelo
 	after 2 gift2
 	

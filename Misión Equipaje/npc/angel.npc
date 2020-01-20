@@ -55,7 +55,8 @@ final2: SAY "Como agradecimiento te daré un estante de nube y mi asiento de nub
 gift: DO
     levelup.explorer 250
 	set dailyQuestComplete1 1
-	track.event MISIONES:2018:EQUIPAJE:ANGEL true
+	track.event MISIONES:2020:EQUIPAJE:ANGEL true
+	inventory.remove 1 maletas.valijaAngelItem
 	modal.award "ESTANTE DE NUBE" maletas.estanteNube
 	after 2 gift2
 	

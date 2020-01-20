@@ -33,8 +33,11 @@ startQuest: SAY "Hola $(user.name) veo que shivy te aviso sobre mi maleta perdid
 habla2: SAY "cuando volvi de viaje no tenia lugar en donde dejarlas y me las lleve conmigo"
     goto habla3
 	
-habla3: SAY "cuando estaba caminando por la isla se me habran caido, mi equipaje también contenia mi collar de la suerte"
-    goto pista
+habla3: SAY "cuando estaba caminando por la isla se me habran caido"
+    goto habla4
+	
+habla4: SAY "mi equipaje también contenia mi collar de la suerte"
+	goto pista
 	
 pista: SAY "lo último que escuche fue un glu glu glu y la maleta ya no estaba más en la isla"
     goto noMorePista
@@ -42,7 +45,7 @@ pista: SAY "lo último que escuche fue un glu glu glu y la maleta ya no estaba m
 noMorePista: SAY "Eso es todo lo que me acuerdo, espero que te sirva de ayuda para encontrar mi maleta"
     goto silence
 	
-pista2: SAY "Recuerdo también que vi unas burbujitas en el agua, como si se hubiera hundido al fondo del océano"
+pista2: SAY "Recuerdo que también vi unas burbujitas en el agua, como si se hubiera hundido al fondo del océano"
     goto silence
 	
 finalState: DO
@@ -58,7 +61,8 @@ final2: SAY "Como agradecimiento te daré una réplica del collar"
 gift: DO
     levelup.explorer 250
 	set dailyQuestComplete3 1
-	track.event MISIONES:2018:EQUIPAJE:CHAMAN true
+	track.event MISIONES:2020:EQUIPAJE:CHAMAN true
+	inventory.remove 1 maletas.valijaChamanItem
 	modal.award "COLLAR ISLEÑO" maletas.collarIndio
 	goto silence2
 	

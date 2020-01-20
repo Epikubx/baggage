@@ -21,6 +21,7 @@ chackTieneObjeto: FORK start | invisible
 	null $(dailyQuestObj5)
 	
 start: DO
+	self.state idle
     on activate daPemio
 	
 daPemio: DO
@@ -29,5 +30,5 @@ daPemio: DO
 	goto invisible
 	
 invisible: DO
-    self.enabled false
+	self.enabled false
 	self.visible false

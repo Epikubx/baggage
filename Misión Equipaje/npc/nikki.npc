@@ -27,7 +27,7 @@ setSigue: DO
     set sigueDailyQuest6 true
 	goto startQuest
 	
-startQuest: SAY "Hola $(user.name) veo que shivy te aviso sobre el problema con mi equipaje perdido"
+startQuest: SAY "Hola $(user.name) veo que shivy te aviso sobre mi maleta perdida"
     goto habla2
 	
 habla2: SAY "Siempre que voy a presentar mis shows llevo mi equipaje de la suerte, este contiene todo lo que necesito en mi trabajo"
@@ -55,7 +55,8 @@ final3: SAY "y un preciado lapiz volador lookeado a mi estilo"
 gift: DO
     levelup.explorer 250
 	set dailyQuestComplete6 1
-	track.event MISIONES:2018:EQUIPAJE:NIKKI true
+	track.event MISIONES:2020:EQUIPAJE:NIKKI true
+	inventory.remove 1 maletas.valijaNikkiItem
 	modal.award "PELUCA COLORIDA" maletas.peloMulticolor
 	after 2 gift2
 	

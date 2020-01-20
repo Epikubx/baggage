@@ -1,38 +1,87 @@
-define
-	shared stored dailyQuest
-	shared stored hablaShivy
-	shared stored dailyQuestPart1
-	shared stored dailyQuest1
-	shared stored dailyQuest2
-	shared stored dailyQuest3
-	shared stored dailyQuest4
-	shared stored dailyQuest5
-	shared stored dailyQuest6
-	shared stored dailyQuest7
-    shared stored dailyQuestTime1
-	shared stored dailyQuestTime2
-	shared stored dailyQuestTime3
-	shared stored dailyQuestTime4
-	shared stored dailyQuestTime5
-	shared stored dailyQuestTime6
-	shared stored dailyQuestTime7
-	shared stored dailyQuestComplete1
-	shared stored dailyQuestComplete2
-	shared stored dailyQuestComplete3
-	shared stored dailyQuestComplete4
-	shared stored dailyQuestComplete5
-	shared stored dailyQuestComplete6
-	shared stored dailyQuestComplete7
+#La idea es que cada usuario pueda tener una quest diferente cada día y no todos tengan la misma (es lo que se espera que suceda)
 
-initial: FORK initial2 | invisible
+define
+	shared stored dailyQuest #Timer del dia actual
+	shared stored hablaShivy #para que no vuelva a repetir la introduccion
+	shared stored dailyQuestPart1 #es para saber si ya completó todo, se setea desde este npc
+	shared stored dailyQuest1 #saber si se le asignó la misión
+	shared stored dailyQuest2 #saber si se le asignó la misión
+	shared stored dailyQuest3 #saber si se le asignó la misión
+	shared stored dailyQuest4 #saber si se le asignó la misión
+	shared stored dailyQuest5 #saber si se le asignó la misión
+	shared stored dailyQuest6 #saber si se le asignó la misión
+	shared stored dailyQuest7 #saber si se le asignó la misión
+    shared stored dailyQuestTime1 #Timer del dia en el que se el asignó la misión
+	shared stored dailyQuestTime2 #Timer del dia en el que se el asignó la misión
+	shared stored dailyQuestTime3 #Timer del dia en el que se el asignó la misión
+	shared stored dailyQuestTime4 #Timer del dia en el que se el asignó la misión
+	shared stored dailyQuestTime5 #Timer del dia en el que se el asignó la misión
+	shared stored dailyQuestTime6 #Timer del dia en el que se el asignó la misión
+	shared stored dailyQuestTime7 #Timer del dia en el que se el asignó la misión
+	shared stored dailyQuestComplete1 #saber si completó la misión
+	shared stored dailyQuestComplete2 #saber si completó la misión
+	shared stored dailyQuestComplete3 #saber si completó la misión
+	shared stored dailyQuestComplete4 #saber si completó la misión
+	shared stored dailyQuestComplete5 #saber si completó la misión
+	shared stored dailyQuestComplete6 #saber si completó la misión
+	shared stored dailyQuestComplete7 #saber si completó la misión
+	shared stored sigueDailyQuest1 #variables "internas" de las misiones que se resetean si no terminó la misión
+	shared stored sigueDailyQuest2
+	shared stored sigueDailyQuest3
+	shared stored sigueDailyQuest4
+	shared stored sigueDailyQuest5
+	shared stored sigueDailyQuest6
+	shared stored sigueDailyQuest7
+	shared stored dailyQuestObj1
+	shared stored dailyQuestObj2
+	shared stored dailyQuestObj3
+	shared stored dailyQuestObj4
+	shared stored dailyQuestObj5
+	shared stored dailyQuestObj6
+	shared stored dailyQuestObj7
+
+initial: FORK initial2 | terminoQuest
   	null $(dailyQuestPart1)
 	
 initial2: FORK new | start
     null $(hablaShivy)
 	
+################
+# INTRODUCCION #
+################
+	
 new: DO
     self.state new
-	goto start
+	on activate talkState
+	
+talkState: DO
+    self.state active
+	goto talk1
+	
+talk1: SAY "HOLA $(user.name), NECESITO QUE ME AYUDES"
+	goto talk12
+	
+talk12: SAY "ESTOY MUY SOFOCADA POR EL TRABAJO EXTRA"
+    goto talk2
+	
+talk2: SAY "ME LLAMAN PIDIENDO AYUDA PARA RESOLVER SUS PROBLEMAS"
+	goto talk21
+	
+talk21: SAY "TE QUERÍA PEDIR SI PODRÍAS AYUDARLOS, TE LO RECOMPENZARÁN"
+    goto talk3
+
+talk3: SAY "PASATE CADA DÍA DE LA SEMANA PARA AYUDAR A ALGUIEN DIFERENTE"
+	goto seteaYaHablo
+	
+seteaYaHablo: DO
+	self.state idle
+    set hablaShivy true
+    goto giveDailyRandom
+	
+#####################################################################################################
+# SABER SI SE ASIGNÓ ALGUNA QUEST Y LUEGO VERIFICAR SI SE LA ASIGNÓ ESE DÍA, EN CASO DE "NOT NULL" ######
+# SI ES NULL, VA A FIJARSE DE QUE HAYA OTRA QUEST ASIGNADA Y SINO, VA A JOIN (se explica mas adelante) ##
+#########################################################################################################
 	
 start: DO
 	on activate checkStatus
@@ -57,7 +106,15 @@ checkStatus6: FORK checkStatus7 | checkStatusTimeQuest6
 	
 checkStatus7: FORK join | checkStatusTimeQuest7
 	null $(dailyQuest7)
-		 
+
+##########################################################################################################
+# SABER SI EL TIEMPO DEL DIA QUE TOMO LA QUEST COINCIDE CON EL TIEMPO ACTUAL, PARA NO ASIGNAR OTRA QUEST #
+# Y VERIFICA EN CASO DE QUE SEAN IGUALES SI TERMINÓ LA QUEST ESE DÍA (checkQuest_) #######################
+# SI NO COINCIDEN BUSCA EN LAS OTRAS QUEST POR SI ES OTRO DIA Y AGARRASTE UNA QUEST NUEVA #
+###########################################################################################
+# explicación "hiciste la primera quest (dailyQuest1) y te manda para checkStatusTimeQuest1, pero como no coinciden el dia xq la hiciste ayer vefifica las otras
+# si no coincide ninguna te manda a join para que se te asigne una quest si es que no se te asignó una en ese dia"
+# esto ayuda, ya que si no te gusta una misión un día, puedes hacer otra al día siguiente
 
 checkStatusTimeQuest1: FORK CheckQuest_1 | checkStatusTimeQuest2
 	eq $(time.day) $(dailyQuestTime1)
@@ -80,38 +137,36 @@ checkStatusTimeQuest6: FORK CheckQuest_6 | checkStatusTimeQuest7
 checkStatusTimeQuest7: FORK CheckQuest_7 | join
 	eq $(time.day) $(dailyQuestTime7)
 	
+#############################################
+# SABER SI SE TE ASIGNÓ UNA QUEST EN EL DÍA #
+#############################################
+	
 join: FORK talkDesaparece | aparece
 	eq $(time.day) $(dailyQuest)
 
+#####################################################################################
+# ASIGNAR UNA CUALQUIER QUEST Y VERIFICA SI LA TIENE HECHA, EN ESE CASO ASIGNA OTRA #######################
+# TAMBIÉN VERIFICA SI FUE ASIGNADA Y SI LA COMPLETASTE, SOLO EN CASO DE HABER SIDO COMPLETADA ASIGNA OTRA #
+# POR LO QUE SI TE TOCA UNA QUE NO COMPLETASTE, LA TENDRÁS QUE COMPLETAR ##################################
+###########################################################################################################
+
 aparece: DO
     self.state idle
-	goto checkeaHablo
+	goto checkCompleteAllQuest
 	
-checkeaHablo: FORK talkState | giveDailyRandom
-    null $(hablaShivy)
+##########################################
+# POR SI COMPLETÓ TODO Y VUELVE OTRO DÍA #
+# A HABLARLE AL NPC Y ASÍ EVITAR ERROR ###
+##########################################
 	
-talkState: DO
-    self.state active
-	goto talk1
-	
-talk1: SAY "HOLA $(user.name), VINE A RECURRIR TU AYUDA"
-	goto talk12
-	
-talk12: SAY "YA QUE ESTOY MUY SOFOCADA POR EL TRABAJO EXTRA QUE ME CAUSAN ALGUNAS PERSONAS"
-    goto talk2
-	
-talk2: SAY "ME LLAMAN PIDIENDO AYUDA PARA RESOLVER ALGUNOS DE SUS PROBLEMAS"
-	goto talk21
-	
-talk21: SAY "TE QUERÍA PEDIR SI PODRÍAS AYUDARLOS, ESTOS TE RECOMPENZARAN"
-    goto talk3
-
-talk3: SAY "PASATE CADA DIA DE ESTA SEMANA PARA AYUDAR A UN PERSONAJE DIFERENTE"
-	goto seteaYaHablo
-	
-seteaYaHablo: DO
-    set hablaShivy true
-    goto giveDailyRandom
+checkCompleteAllQuest: FORK setDailyQuestComplete | giveDailyRandom
+	not null $(dailyQuestComplete1)
+	not null $(dailyQuestComplete2)
+	not null $(dailyQuestComplete3)
+	not null $(dailyQuestComplete4)
+	not null $(dailyQuestComplete5)
+	not null $(dailyQuestComplete6)
+	not null $(dailyQuestComplete7)
 
 giveDailyRandom: DO
 	goto giveDailyCheck_$(rand.round.1-7)
@@ -128,35 +183,39 @@ giveDailyCheck_2: FORK giveQuest_2 | giveDailyCheckVuelve_2
 giveDailyCheckVuelve_2: FORK giveQuest_2 | giveDailyRandom
 	null $(dailyQuestComplete2)
 
-giveDailyCheck_3: FORK giveQuest_3 | giveDailyRandom
+giveDailyCheck_3: FORK giveQuest_3 | giveDailyCheckVuelve_3
 	null $(dailyQuest3)
 	
 giveDailyCheckVuelve_3: FORK giveQuest_3 | giveDailyRandom
 	null $(dailyQuestComplete3)
 
-giveDailyCheck_4: FORK giveQuest_4 | giveDailyRandom
+giveDailyCheck_4: FORK giveQuest_4 | giveDailyCheckVuelve_4
 	null $(dailyQuest4)
 	
 giveDailyCheckVuelve_4: FORK giveQuest_4 | giveDailyRandom
 	null $(dailyQuestComplete4)
 
-giveDailyCheck_5: FORK giveQuest_5 | giveDailyRandom
+giveDailyCheck_5: FORK giveQuest_5 | giveDailyCheckVuelve_5
 	null $(dailyQuest5)
 	
 giveDailyCheckVuelve_5: FORK giveQuest_5 | giveDailyRandom
 	null $(dailyQuestComplete5)
 
-giveDailyCheck_6: FORK giveQuest_6 | giveDailyRandom
+giveDailyCheck_6: FORK giveQuest_6 | giveDailyCheckVuelve_6
 	null $(dailyQuest6)
 	
 giveDailyCheckVuelve_6: FORK giveQuest_6 | giveDailyRandom
 	null $(dailyQuestComplete6)
 
-giveDailyCheck_7: FORK giveQuest_7 | giveDailyRandom
+giveDailyCheck_7: FORK giveQuest_7 | giveDailyCheckVuelve_7
 	null $(dailyQuest7)
 	
 giveDailyCheckVuelve_7: FORK giveQuest_7 | giveDailyRandom
 	null $(dailyQuestComplete7)
+
+###################
+# ENTREGA QUEST 1 #
+###################
 
 giveQuest_1: DO
 	track.event FEATURES:DAILY_QUEST:ENTREGA 1
@@ -188,6 +247,10 @@ idleMision1_2: SAY "pero cuando volvió no sabe donde dejo las maletas"
 idleMision12: SAY "Lo encontrarás en la nieve, él te dará mas información sobre lo que sucedió"
     goto vete
 	
+###################
+# ENTREGA QUEST 2 #
+###################
+	
 giveQuest_2: DO
 	track.event FEATURES:DAILY_QUEST:ENTREGA 2
 	set dailyQuestTime2 $(time.day)
@@ -212,11 +275,18 @@ dioMision_21: DO
 idleMision2: SAY "Recién me llamó la princesa cereza platicandome que se fue de viaje"
     goto idleMision2_2
 	
-idleMision2: SAY "pero al regresar los guardias perdieron su maleta"
+idleMision2_2: SAY "pero al regresar los guardias perdieron su maleta"
     goto idleMision21
 	
-idleMision21: SAY "La encontrarás en su castillo en el reino cereza, ella te dará mas información sobre el asunto"
-    goto vete
+idleMision21: SAY "La encontrarás en su castillo en el reino cereza"
+    goto idleMision22
+	
+idleMision22: SAY "ella te dará mas información sobre el asunto"
+	goto vete
+	
+###################
+# ENTREGA QUEST 3 #
+###################
 	
 giveQuest_3: DO
 	track.event FEATURES:DAILY_QUEST:ENTREGA 3
@@ -248,6 +318,10 @@ idleMision3_2: SAY "pero al regresar perdio su maleta"
 idleMision31: SAY "Lo encontrarás en la isla fatamorgana, él te dará mas información sobre el asunto"
     goto vete
 	
+###################
+# ENTREGA QUEST 4 #
+###################
+	
 giveQuest_4: DO
 	track.event FEATURES:DAILY_QUEST:ENTREGA 4
 	set dailyQuestTime4 $(time.day)
@@ -269,14 +343,18 @@ dioMision_41: DO
     self.state active
 	goto idleMision4
 	
-idleMision4: SAY "Recién me llamó burbuja desde el agua platicandome como le había ido"
+idleMision4: SAY "Recién me llamó burbuja desde el mar platicandome como le había ido en la superficie"
     goto idleMision4_2
 	
-idleMision4: SAY "pero en su viaje por la superficie perdió su equipaje"
+idleMision4_2: SAY "pero en sus vacaciones fuera del mar perdió su equipaje"
     goto idleMision42
 	
-idleMision42: SAY "Lo encontrarás en el mar, ella te dará mas información sobre su equipaje"
+idleMision42: SAY "La encontrarás en el mar, ella te dará mas información sobre el tema"
     goto vete	
+
+###################
+# ENTREGA QUEST 5 #
+###################
 
 giveQuest_5: DO
 	track.event FEATURES:DAILY_QUEST:ENTREGA 5
@@ -305,6 +383,10 @@ idleMision5: SAY "Recién me llamó adrian pidiendome si lo podías ayudar a enc
 idleMision52: SAY "Lo encontrarás en el playa, él te dará mas información sobre el equipaje"
     goto vete
 	
+###################
+# ENTREGA QUEST 6 #
+###################
+	
 giveQuest_6: DO
 	track.event FEATURES:DAILY_QUEST:ENTREGA 6
 	set dailyQuestTime6 $(time.day)
@@ -329,8 +411,15 @@ dioMision_61: DO
 idleMision6: SAY "Recién me llamó nikki fortuna pidiendome si lo podías ayudar a encontrar su equipaje"
     goto idleMision62
 	
-idleMision62: SAY "Lo encontrarás en el recital, él te dará mas información sobre el equipaje"
-    goto vete
+idleMision62: SAY "Lo encontrarás en el recital, a la derecha de compra-venta"
+    goto idleMision63
+	
+idleMision63: SAY "él te dará mas información sobre el equipaje"
+	goto vete
+	
+###################
+# ENTREGA QUEST 7 #
+###################
 	
 giveQuest_7: DO
 	track.event FEATURES:DAILY_QUEST:ENTREGA 7
@@ -359,6 +448,12 @@ idleMision7: SAY "Recién me llamó pascual, pidiendome si lo podíass ayudar a 
 idleMision72: SAY "Lo encontrarás en el parque, él te dará mas información sobre su equipaje"
     goto vete
 	
+##################################################################################
+# CHEQUEA SI ESTÁN COMPLETAS LAS QUEST (viene desde checkStatusTimeQuest). SIRVE #
+# PARA VER SI EN EL MISMO DÍA AUN NO LA COMPLETÓ, Y POR SI EL USUARIO SE OLVIDÓ ##
+# LO QUE EL NPC DIJO Y REPITE LA PISTA DE EN DONDE SE ENCUENTRÁ LA MISIÓN ########
+##################################################################################
+	
 CheckQuest_1: FORK activeMision1 | CheckComplete_1
 	null $(dailyQuestComplete1)
 
@@ -379,6 +474,11 @@ CheckQuest_6: FORK activeMision6 | CheckComplete_1
 	
 CheckQuest_7: FORK activeMision7 | CheckComplete_1
 	null $(dailyQuestComplete7)
+
+############################################
+# SI EL USUARIO TERMINÓ LA MISIÓN Y VUELVE #############
+# SI NO LA TERMINÓ TODAS LE DICE QUE MAÑANA HABRÁ OTRA #
+########################################################
 
 CheckComplete_1: FORK talkDesaparece | CheckComplete_2
 	null $(dailyQuestComplete1)
@@ -402,6 +502,7 @@ CheckComplete_7: FORK talkDesaparece | setDailyQuestComplete
 	null $(dailyQuestComplete7)
 	
 setDailyQuestComplete: DO
+	track.event FEATURES:DAILY_QUEST:COMPLETADA 1
     self.state active
     set dailyQuestPart1 true
 	goto talkFinal
@@ -409,7 +510,7 @@ setDailyQuestComplete: DO
 talkFinal: SAY "Gracias $(user.name) por ayudarlos, espero que nos volvamos a ver"
 	goto talkFinal_2
 	
-talkFinal_2: SAY "Por ahora estoy ocupadísima con el laburo me tengo que ir, CHAU CHAU felino"
+talkFinal_2: SAY "Por ahora estoy ocupadísima con el trabajo, nos volvemos a hablar proximamente"
 	goto desaparece2
 	
 talkDesaparece: DO
@@ -422,7 +523,7 @@ talkDesaparece2: SAY "EN ESTE MOMENTO No puedo prestarte mucha atención porque 
 talkDesaparece3: SAY "VUELVE MAÑANA PARA OTRA MISIÓN"
     goto desaparece
 	
-vete: SAY "Sal de aqui felino, estoy ocupadisima organizando bandas"
+vete: SAY "ahora Sal de aqui felino que estoy ocupadisima organizando bandas"
     goto idleTel
 	
 idleTel: DO 
@@ -435,14 +536,12 @@ desaparece: DO
 	
 desaparece2: DO
 	self.state idle
-	after 1 silence2
-
+	self.enabled false
+	goto silence
+	
+terminoQuest: DO
+	self.state idle
+	self.enabled false
+	
 silence: SAY " "
 	goto initial
-	
-silence2: SAY " "
-    goto invisible
-	
-invisible: DO
-	self.enabled false
-	self.visible false

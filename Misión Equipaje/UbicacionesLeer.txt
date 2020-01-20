@@ -1,0 +1,18 @@
+Ubicaciones Valijas:
+Valija Adrian (maletas.valijaDiablo_so) - Cueva Nieve (39314)
+Valija Angel (maletas.valijaAngel_so) - Isla (33769)
+Valija Chaman (maletas.valijaChaman_so) - Mar (38355)
+Valija Conejo (maletas.valijaConejo_so) - Ciudad (25355)
+Valija Nikki (maletas.valijaNikki_so) - GatuShows (51688698)
+Valija Princesa (maletas.valijaPrincesa_so) - Nieve (25367)
+Valija Sirena (maletas.valijaSirena_so) - Park Kite (51684239)
+
+Ubiaciones Personajes:
+shivy (maletas.shivy_so) - Parque (25358)
+Adrian (maletas.diablo_so) - Playa (25364)
+Angel (maletas.angel_so) - Gatucerro (25369)
+Chaman (maletas.chaman_so) - Isla (33764)
+Conejo (maletas.conejo_so) - parque (43032)
+Nikki (maletas.nikki_so) - Recital (39006)
+Princesa (maletas.princesa_so) - Castillo Reino Cereza (51683048) - reemplazar a la princesa que ya está por la de maletas.princesa_so
+Sirena (maletas.sirena_so) - Mar (38355)

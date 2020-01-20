@@ -27,19 +27,19 @@ setSigue: DO
     set sigueDailyQuest7 true
 	goto startQuest
 	
-startQuest: SAY "Hola $(user.name) veo que shivy te aviso sobre el problema con mi equipaje perdido"
+startQuest: SAY "Hola $(user.name) veo que shivy te avisó sobre mi equipaje perdido"
     goto habla2
 	
-habla2: SAY "Cuando voy saltando algunas veces se me caen cosas pero me doy cuenta por que las escucho cuando caen"
+habla2: SAY "Cuando voy saltando algunas veces se me caen cosas pero me doy cuenta por que las escucho caer"
     goto habla3
 	
-habla3: SAY "Pero una vez cuando estaba paseando habia tanto ruido que no me podia oir a mi mismo"
+habla3: SAY "Pero una vez estaba paseando y había tanto ruido que no me podía oir ni a mi mismo"
     goto pista
 	
 pista: SAY "esa fue la ultima vez que vi mi maleta, estaba lleno de autos y de gaturros"
     goto advertencia
 	
-advertencia: SAY "Te advierto que mi maleta es diferente a las demas, esta salta"
+advertencia: SAY "Te advierto que mi maleta es diferente a las demás, es algo inquieta"
     goto advertencia2
 	
 advertencia2: SAY "Espero que no sea un reto para ti"
@@ -59,6 +59,7 @@ gift: DO
     levelup.explorer 250
 	set dailyQuestComplete7 1
 	track.event MISIONES:2018:EQUIPAJE:PASCUAL true
+	inventory.remove 1 maletas.valijaConejoItem
 	modal.award "MOÑO ROSA" maletas.monioConejo
 	after 2 gorroConejo
 	
