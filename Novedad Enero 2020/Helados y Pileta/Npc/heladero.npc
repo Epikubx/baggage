@@ -1,0 +1,41 @@
+define
+	shared stored quest2020
+
+initial: DO
+	on activate checkHablo
+	after $(rand.3-4) talk1
+	
+talk1: SAY "¡Helados!"
+	goto talk2
+talk2: SAY "¡Deliciosos helados!"
+	goto initial
+	
+checkHablo: FORK charla | open
+	null $(quest2020/heladero/charla)
+	
+charla: SAY "¡Hola, amig@!"
+	goto charla2
+charla2: SAY "¿Te gusta la remodelación de la terraza moderna?"
+	goto charla3
+charla3: SAY "Llegó el verano y por supuesto que no iban a faltar mis helados"
+	goto charla4
+charla4: SAY "Claro, todavía no presenté"
+	goto charla5
+charla5: SAY "¡Soy el mejor heladero del mundo!"
+	goto charla6
+charla6: SAY "Ah, ¿no me crees? ¡Pide un helado!"
+	goto setHablar
+	
+setHablar: DO
+	set quest2020/heladero/charla true
+	goto open
+
+open: DO
+	on activate openCatalog
+
+openCatalog: DO
+	catalog helados2020
+	goto silenceWait
+	
+silenceWait: SAY " "
+	goto initial

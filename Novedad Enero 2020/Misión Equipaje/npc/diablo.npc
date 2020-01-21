@@ -5,7 +5,10 @@ define
 	shared stored dailyQuestObj5
 	shared stored sigueDailyQuest5
 	
-initial: FORK invisible | setDailyQuestComplete_5
+initial: FORK invisible | juegaDesktop
+	not client.isDesktop
+	
+juegaDesktop: FORK invisible | setDailyQuestComplete_5
 	null $(dailyQuest5)
 	
 setDailyQuestComplete_5: FORK join | invisible
@@ -65,7 +68,7 @@ desaparece: DO
 	after 1 silence
 
 silence: SAY " "
-	goto initial
+	goto juegaDesktop
 	
 silence2: SAY " "
 	goto invisible

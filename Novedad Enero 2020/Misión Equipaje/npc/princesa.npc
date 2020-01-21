@@ -6,7 +6,10 @@ define
 	shared stored sigueDailyQuest2
 	shared session antifaz
 	
-initial: FORK initial2 | setDailyQuestComplete_2
+initial: FORK invisible | juegaDesktop
+	not client.isDesktop
+	
+juegaDesktop: FORK initial2 | setDailyQuestComplete_2
 	null $(dailyQuest2)
 	
 setDailyQuestComplete_2: FORK join | initial2
@@ -124,4 +127,4 @@ tieneMascara6: SAY "SONARÁ VANIDOSO, PERO EN ESTA FIESTA SOY LA CEREZA DE LA TO
 	goto silence
 
 silence: SAY " "
-	goto initial
+	goto juegaDesktop

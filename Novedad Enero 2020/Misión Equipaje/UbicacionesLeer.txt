@@ -1,0 +1,20 @@
+Ubicaciones Valijas:
+Valija Adrian name="maletas.valijaDiablo_so", RoomId=(39314), behaviorName="valijaDiablo"
+Valija Angel name="maletas.valijaAngel_so", RoomId=(33769), behaviorName="valijaAngel"
+Valija Chaman name="maletas.valijaChaman_so", RoomId=(38355), behaviorName="valijaChaman"
+Valija Conejo name="maletas.valijaConejo_so", RoomId=(25355), behaviorName="valijaConejo"
+Valija Nikki name="maletas.valijaNikki_so", RoomId=(51688698), behaviorName="valijaNikki"
+Valija Princesa name="maletas.valijaPrincesa_so", RoomId=(25367), behaviorName="valijaPrincesa"
+Valija Sirena name="maletas.valijaSirena_so", RoomId=(51684239), behaviorName="valijaSirena"
+
+Ubiaciones Personajes:
+shivy name="maletas.shivy_so", RoomId=(25358), behaviorName="shivy"
+Adrian name="maletas.diablo_so", RoomId=(25364), behaviorName="diablo"
+Angel name="maletas.angel_so", RoomId=(25369), behaviorName="angel"
+Chaman name="maletas.chaman_so", RoomId=(33764), behaviorName="chaman"
+Conejo name="maletas.conejo_so", RoomId=(43032), behaviorName="conejo"
+Nikki name="maletas.nikki_so", RoomId=(39006), behaviorName="nikki"
+Princesa name="maletas.princesa_so", RoomId=(51683048), behaviorName="princesa"
+Sirena name="maletas.sirena_so", RoomId=(38355), behaviorName="sirena"
+
+reemplazar a la princesa que ya está en el room (51683048) por la de maletas.princesa_so.
