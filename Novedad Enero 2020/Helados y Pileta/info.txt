@@ -1,4 +1,19 @@
 {RoomId: 25370,
+Como quedaría el scene.all
+[Portal id=36728 name="default" size=1x1 coord=(4, 2)]
+name="sky.planta5_so" coord=(10, 10)
+name="sky.planta4_so" coord=(12, 1)
+name="sky.planta1_so" coord=(7, 10)
+name="carnival.antorchaRedonda1" coord=(5, 6)
+name="carnival.antorchaRedonda1" coord=(10, 4)
+name="sky.hamacaParaguaya_so" coord=(4, 8)
+name="sky.planta1_so" coord=(2, 10)
+name="sky.planta1_so" coord=(7, 3)
+name="minigames.whackacat_so" coord=(2, 6) behaviorName="whackacat"
+name="sky.wall1_so" coord=(2, 1)
+name="sky.stairway_so" coord=(3, 1)
+name="sky.house1_so" coord=(2, 3)
+name="sky.railing_so" coord=(2, 11)
 name="adventureTime.tobogan_so" coord=(7, 7)
 name="adventureTime.heladeria_so" coord=(15, 3) behaviorName="heladeria"
 name="adventureTime.banquetaHeladoRosa" coord=(15, 4)
@@ -33,3 +48,5 @@ name="sky.agua_so" coord=(15, 9)
 name="sky.agua_so" coord=(16, 9)
 name="sky.agua_so" coord=(17, 9)
 name="sky.agua_so" coord=(18, 9)}
+
+"dailyBonus/props.gatito_so" moverlo a otro room como el gatuparque (está quitado del "scene.all" anterior porque molesta visualmente, como otros objetos que no aparecen en la lista anterior)
