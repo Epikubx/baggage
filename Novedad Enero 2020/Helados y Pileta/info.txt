@@ -51,7 +51,7 @@ name="sky.agua_so" coord=(18, 9)}
 
 "dailyBonus/props.gatito_so" moverlo a otro room como el gatuparque (está quitado del "scene.all" anterior porque molesta visualmente, como otros objetos que no aparecen en la lista anterior)
 en el sky.fla los unicos objetos que modifique fueron "railing_so" y al agua lo cambie por agua_so. Para que los agregues directamente al sky.fla de mg original a esos 2 objetos
-
+(porque de "agua" a "agua_so", para que no lo usen como effecto head (o en de otra forma) y empiece a titilar (cambio de fotogramas).
 
 Catalogo{
 name: helados2020
