@@ -50,3 +50,30 @@ name="sky.agua_so" coord=(17, 9)
 name="sky.agua_so" coord=(18, 9)}
 
 "dailyBonus/props.gatito_so" moverlo a otro room como el gatuparque (está quitado del "scene.all" anterior porque molesta visualmente, como otros objetos que no aparecen en la lista anterior)
+en el sky.fla los unicos objetos que modifique fueron "railing_so" y al agua lo cambie por agua_so. Para que los agregues directamente al sky.fla de mg original a esos 2 objetos
+
+
+Catalogo{
+name: helados2020
+objetos:
+name="summer2020.puffDonaRosa" desc="Puff de frutilla" price=200
+name="summer2020.puffDonaCeleste" desc="Puff de crema del cielo" price=200
+name="summer2020.poniHeladoCrema" desc="Poni americano" price=1500
+name="summer2020.poniHelado" desc="Poni de chocolate" price=1500
+name="summer2020.peloVainilla" desc="Pelo de chocolate con crema" price=150
+name="summer2020.peloHeladoChocolate" desc="pelo de chocolate con chispitas" price=150
+name="summer2020.peloHeladoChica3" desc="Pelo americano" price=120
+name="summer2020.peloHeladoChica2" desc="pelo de chocolate" price=120
+name="summer2020.peloHeladoChica1" desc="pelo del cielo" price=120
+name="summer2020.peloHelado" desc=pelo de crema con chispitas"" price=150
+name="summer2020.peloFrutilla" desc="Pelo de frutilla con moño chocolatoso" price=200
+name="summer2020.peloFruillaChico" desc="Pelo de frutilla" price=120
+name="summer2020.paletaSandia" desc="Helado de sandia" price=10
+name="summer2020.paletaFrutilla" desc="Helado de frutilla" price=10
+name="summer2020.paletaChocolate" desc="Helado de chocolate con crema" price=10
+name="summer2020.heladoFrutilla" desc="Helado de frutilla con chocolate" price=100
+name="summer2020.heladoChocolate" desc="Helado de Chocolate con Crema" price=100
+name="summer2020.helado" desc="Helado de frutilla y crema del cielo" price=100
+name="summer2020.camaHelado" desc="Cama de helado" price=250
+name="summer2020.banquetaHeladoRosa" desc="Banquito de frutilla" price=200
+name="summer2020.banquetaHeladoAzul" desc="Banquito de crema del cielo" price=200

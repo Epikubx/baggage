@@ -13,6 +13,7 @@
       function frame1() : *
       {
          adds.action = "icecream.adventureTime.paletaSandia";
+		 adds.effect = "glow.CC0000";
       }
    }
 }

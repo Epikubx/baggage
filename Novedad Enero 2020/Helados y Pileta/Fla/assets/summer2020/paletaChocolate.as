@@ -13,6 +13,7 @@
       function frame1() : *
       {
          adds.action = "icecream.adventureTime.paletaChocolate";
+		 adds.effect = "glow.913203";
       }
    }
 }
