@@ -1,0 +1,14 @@
+class Config
+{
+   
+   public static var data:Object = {"data":{
+      "maletas":{
+         "name":"MISIÓN EQUIPAJES PERDIDOS",
+         "id":25358,
+         "coord":[8,9]
+      },
+	   "heladeria":{
+         "name":"¡HELADOS Y MÁS!",
+         "id":25370,
+         "coord":[11,4]
+      },
